@@ -1,26 +1,60 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./styles/tailwind.css";
+import "./styles/custom.css";
+import "./styles/app.css";
+import React from "react";
+import { Suspense } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { RecoilRoot } from "recoil";
+import {
+  Home,
+  Register,
+  Login,
+  InstagramUserProfile,
+  SearchInstagramUsers,
+  Dashboard,
+  VerifyEmail,
+} from "./pages/exports";
+import ProtectedRoute from "./pages/ProtectedRoute/ProtectedRoute";
 
-function App() {
+/**
+ * TODO User Things to add
+ * TODO Add Email Input in VerifyEmail Page
+ * TODO Add ForgotPassword && UpdatePassword Page
+ * TODO Save Maybe Recent Changes in DB and add them to User
+ */
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <RecoilRoot>
+        <Suspense fallback={"Loading"}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/dashboard"
+              element={<ProtectedRoute component={Dashboard} />}
+            />
+
+            <Route
+              path="/instagram/profile/:username"
+              element={<ProtectedRoute component={InstagramUserProfile} />}
+            />
+            <Route
+              path="/instagram/search"
+              element={<ProtectedRoute component={SearchInstagramUsers} />}
+            />
+            <Route path="/account/verify/email/" element={<VerifyEmail />} />
+            <Route
+              path="/account/verify/email/:token"
+              element={<VerifyEmail />}
+            />
+          </Routes>
+        </Suspense>
+      </RecoilRoot>
+    </Router>
   );
-}
+};
 
 export default App;
