@@ -1,6 +1,8 @@
 import instance from "../axios";
 import { addInstagramUser } from "../instagram/instagram";
-import AxiosResponse from "axios";
+import AxiosResponse, { AxiosError } from "axios";
+import axios from "axios";
+
 
 export const register = async (
   name: string,
@@ -73,9 +75,11 @@ export const verifyEmailToken = async (token: string) => {
 };
 
 export const verifyEmail = async () => {
-  const req = await instance.post("/user/account/email/verify").catch(() => {
-    return { isSuccess: false, data: {} };
-  });
+  const req = await instance
+    .post("/user/account/email/verify", {})
+    .catch(() => {
+      return { isSuccess: false, data: {} };
+    });
   if ((req as any).status === 200) {
     return true;
   }
@@ -117,10 +121,68 @@ export const unfollowInstagramUser = async (username: string) => {
       username,
     });
 
-    if ((req as any).status === 200) {
+    if (req.status === 200) {
       return true;
     }
-  } catch (err) {
+  } catch {
+    return false;
+  }
+  return false;
+};
+
+export const resetUserPassword = async (email: string) => {
+  try {
+    const req = await instance.post("/account/forgot/password", {
+      email,
+    });
+    if (req.status === 200) {
+      return true;
+    }
+  } catch {
+    return false;
+  }
+  return false;
+};
+
+export const verifyPasswordToken = async (token: string) => {
+  try {
+    const req = await instance.post("/account/verify/password/token", {
+      token,
+    });
+    if (req.status === 200) {
+      return { isSuccess: true, _message: "" };
+    }
+  } catch (err: any) {
+    if (
+      err.response.status === 400 &&
+      err.response.data.name === "TokenExpiredError"
+    ) {
+      return {
+        isSuccess: false,
+        _message: "The password reset link has expired. Please try again.",
+      };
+    }
+    return {
+      isSuccess: false,
+      _message: "",
+    };
+  }
+  return {
+    isSuccess: false,
+    _message: "",
+  };
+};
+
+export const updatePassword = async (token: string, password: string) => {
+  try {
+    const req = await instance.post("/user/account/reset/password", {
+      token,
+      password,
+    });
+    if (req.status === 200) {
+      return true;
+    }
+  } catch {
     return false;
   }
   return false;

@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { login } from "../../api/user/user";
 import Layout from "../../components/Layout";
@@ -11,7 +11,7 @@ const Login = () => {
   return (
     <Layout>
       <div>Login</div>
-      <div>
+      <div className="flex flex-col gap-4">
         <input
           type="text"
           name="email"
@@ -38,7 +38,6 @@ const Login = () => {
             })
           }
         />
-      </div>
 
       <button
         className="bg-blue-500"
@@ -53,9 +52,11 @@ const Login = () => {
             return navigate(redirect);
           }
         }}
-      >
+        >
         Login
       </button>
+      <Link to="/account/forgot/password">Forgot Password</Link>
+        </div>
     </Layout>
   );
 };

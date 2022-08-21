@@ -13,15 +13,16 @@ import {
   SearchInstagramUsers,
   Dashboard,
   VerifyEmail,
+  ForgotPassword,
 } from "./pages/exports";
 import ProtectedRoute from "./pages/ProtectedRoute/ProtectedRoute";
+import UpdatePassword from "./pages/UpdatePassword/UpdatePassword";
+import Settings from "./pages/Settings/Settings";
 
 /**
- * TODO User Things to add
- * TODO Add Email Input in VerifyEmail Page
- * TODO Add ForgotPassword && UpdatePassword Page
- * TODO Save Maybe Recent Changes in DB and add them to User
- */
+ * TODO Settings Page
+ * TODO Admin Page
+*/
 
 const App = () => {
   return (
@@ -36,6 +37,10 @@ const App = () => {
               path="/dashboard"
               element={<ProtectedRoute component={Dashboard} />}
             />
+            <Route
+              path="/user/account/settings"
+              element={<ProtectedRoute component={Settings} />}
+            />
 
             <Route
               path="/instagram/profile/:username"
@@ -46,6 +51,14 @@ const App = () => {
               element={<ProtectedRoute component={SearchInstagramUsers} />}
             />
             <Route path="/account/verify/email/" element={<VerifyEmail />} />
+            <Route
+              path="/account/forgot/password"
+              element={<ForgotPassword />}
+            />
+            <Route
+              path="/account/update/password/:token"
+              element={<UpdatePassword />}
+            />
             <Route
               path="/account/verify/email/:token"
               element={<VerifyEmail />}

@@ -1,9 +1,16 @@
-import React from 'react'
+import React from "react";
 
 const Settings = () => {
   return (
-    <div>Settings</div>
-  )
-}
+    <div>
+      Settings
+      <div>
+        <h1>Notification Settings</h1>
+        <h1>Update Password</h1>
+        <h1>Link Instagram</h1>
+      </div>
+    </div>
+  );
+};
 
-export default Settings
+export default Settings;
