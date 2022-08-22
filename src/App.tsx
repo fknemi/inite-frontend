@@ -14,15 +14,14 @@ import {
   Dashboard,
   VerifyEmail,
   ForgotPassword,
+  ResetPassword,
+  Settings,
 } from "./pages/exports";
 import ProtectedRoute from "./pages/ProtectedRoute/ProtectedRoute";
-import UpdatePassword from "./pages/UpdatePassword/UpdatePassword";
-import Settings from "./pages/Settings/Settings";
-
 /**
  * TODO Settings Page
  * TODO Admin Page
-*/
+ */
 
 const App = () => {
   return (
@@ -57,7 +56,7 @@ const App = () => {
             />
             <Route
               path="/account/update/password/:token"
-              element={<UpdatePassword />}
+              element={<ResetPassword />}
             />
             <Route
               path="/account/verify/email/:token"

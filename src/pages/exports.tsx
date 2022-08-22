@@ -15,6 +15,7 @@ const ForgotPassword = lazy(() => import("./ForgotPassword/ForgotPassword"));
 const Settings = lazy(() => import("./Settings/Settings"));
 const Dashboard = lazy(() => import("./Dashboard/Dashboard"));
 const VerifyEmail = lazy(() => import("./VerifyEmail/VerifyEmail"));
+const ResetPassword = lazy(() => import("./ResetPassword/ResetPassword"));
 
 export {
   Home,
@@ -28,4 +29,5 @@ export {
   Dashboard,
   VerifyEmail,
   InstagramUserProfile,
+  ResetPassword,
 };

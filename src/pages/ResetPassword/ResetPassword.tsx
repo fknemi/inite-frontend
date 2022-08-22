@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { verifyPasswordToken, updatePassword } from "../../api/user/user";
 
-const UpdatePassword = () => {
+
+const ResetPassword = () => {
   let { token }: any = useParams();
   const [passwords, setPasswords] = useState({
     password: "",
@@ -82,4 +83,4 @@ const UpdatePassword = () => {
   );
 };
 
-export default UpdatePassword;
+export default ResetPassword;

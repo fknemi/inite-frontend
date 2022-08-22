@@ -1,5 +1,5 @@
 import { atom, RecoilState } from "recoil";
-import { Atoms } from "../@types/types";
+import { Atoms, NotificationSettings } from "../@types/types";
 
 let user = JSON.parse(localStorage.getItem("user") as string);
 
@@ -65,5 +65,17 @@ export const recentChangesAtom = atom({
     followedByCount: { isRecent: false, value: undefined },
     followingCount: { isRecent: false, value: undefined },
     postsCount: { isRecent: false, value: undefined },
+  },
+});
+export const notificationSettingsAtom = atom<NotificationSettings>({
+  key: "notificationSettings",
+  default: JSON.parse(localStorage.getItem("user") as string).notifications || {
+    newAccountNameChange: true,
+    newPosts: true,
+    newFollowers: true,
+    startedFollowingNewUsers: true,
+    newBiography: true,
+    newAvatar: true,
+    newAccountPrivacyChange: true,
   },
 });

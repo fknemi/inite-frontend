@@ -2,7 +2,7 @@ import instance from "../axios";
 import { addInstagramUser } from "../instagram/instagram";
 import AxiosResponse, { AxiosError } from "axios";
 import axios from "axios";
-
+import { NotificationSettings } from "../../@types/types";
 
 export const register = async (
   name: string,
@@ -178,6 +178,22 @@ export const updatePassword = async (token: string, password: string) => {
     const req = await instance.post("/user/account/reset/password", {
       token,
       password,
+    });
+    if (req.status === 200) {
+      return true;
+    }
+  } catch {
+    return false;
+  }
+  return false;
+};
+
+export const updateNotificationSettings = async (
+  notificationSettings: NotificationSettings
+) => {
+  try {
+    const req = await instance.post("/user/update/settings/notifications", {
+      notifications: notificationSettings,
     });
     if (req.status === 200) {
       return true;

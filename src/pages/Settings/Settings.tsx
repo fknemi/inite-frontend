@@ -1,13 +1,14 @@
 import React from "react";
+import Notifications from "../../components/Notifications";
+import UpdatePassword from "../../components/UpdatePassword";
 
 const Settings = () => {
   return (
     <div>
       Settings
-      <div>
-        <h1>Notification Settings</h1>
-        <h1>Update Password</h1>
-        <h1>Link Instagram</h1>
+      <div className="flex self-start justify-start">
+        {/* <Notifications /> */}
+        <UpdatePassword />
       </div>
     </div>
   );
