@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import { verifyPasswordToken, updatePassword } from "../../api/user/user";
-
+import { verifyPasswordToken, resetPassword } from "../../api/user/user";
 
 const ResetPassword = () => {
   let { token }: any = useParams();
@@ -66,11 +65,11 @@ const ResetPassword = () => {
           if (password !== confirmPassword) {
             setDisableButton(true);
           }
-          const didUpdatePassword = await updatePassword(
+          const didResetPassword = await resetPassword(
             token,
             passwords.password
           );
-          if (didUpdatePassword) {
+          if (didResetPassword) {
             alert("Password Update???");
           }
           setDisableButton(true);

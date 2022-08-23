@@ -1,12 +1,19 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { login } from "../../api/user/user";
 import Layout from "../../components/Layout";
-import { loginAtom, redirectAtom } from '../../statedrive/atoms';
+import {
+  loginAtom,
+  redirectAtom,
+  userAtom,
+  tokensAtom,
+} from "../../statedrive/atoms";
 const Login = () => {
   const [loginForm, setLoginForm]: any = useRecoilState(loginAtom);
-  const [redirect,setRedirect] = useRecoilState(redirectAtom)
+  const setUser = useSetRecoilState(userAtom);
+  const setTokens = useSetRecoilState(tokensAtom);
+  const [redirect, setRedirect] = useRecoilState(redirectAtom);
   const navigate = useNavigate();
   return (
     <Layout>
@@ -39,24 +46,35 @@ const Login = () => {
           }
         />
 
-      <button
-        className="bg-blue-500"
-        onClick={async () => {
-          const { email, password } = loginForm;
-          if (!email || !password) {
-            return "";
-          }
-          console.log(email, password);
-          const { isSuccess, user }: any = await login(email, password);
-          if (isSuccess) {
-            return navigate(redirect);
-          }
-        }}
+        <button
+          className="bg-blue-500"
+          onClick={async () => {
+            const { email, password } = loginForm;
+            if (!email || !password) {
+              return "";
+            }
+            console.log(email, password);
+            const { isSuccess, user }: any = await login(email, password);
+
+            if (isSuccess && user) {
+              let token = localStorage.getItem("x-token") as string;
+              let refreshToken = localStorage.getItem(
+                "x-refresh-token"
+              ) as string;
+              if (token && refreshToken) {
+                setTokens({
+                  token: token,
+                  refreshToken: refreshToken,
+                });
+              }
+              return navigate(redirect);
+            }
+          }}
         >
-        Login
-      </button>
-      <Link to="/account/forgot/password">Forgot Password</Link>
-        </div>
+          Login
+        </button>
+        <Link to="/account/forgot/password">Forgot Password</Link>
+      </div>
     </Layout>
   );
 };

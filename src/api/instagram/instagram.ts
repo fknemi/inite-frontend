@@ -5,10 +5,15 @@ export const fetchInstagramUser = async (username: string) => {
     const req = await instance.post("/instagram/user/get", {
       username,
     });
-    if ((req as any).status === 200) {
+    if (req.status === 200) {
       return { isSuccess: true, data: req.data };
     }
-  } catch (err: any) {
+  } catch (err) {
+    let status = (err as { [key: string]: { [key: string]: string | number } })
+      .response.status;
+    if (status === 404) {
+      return { isSuccess: false, data: {}, _message: "User Does Not Exist" };
+    }
     return { isSuccess: false, data: {} };
   }
 
@@ -32,7 +37,7 @@ export const getInstagramUserMedia = async (username: string) => {
     const req = await instance.post("/instagram/user/get/media", {
       username,
     });
-    if ((req as any).status === 200) {
+    if (req.status === 200) {
       return { isSuccess: true, data: req.data };
     }
   } catch {
@@ -45,7 +50,7 @@ export const fetchRecentChanges = async (instagramUser: any) => {
     const req = await instance.post("/instagram/get/recent", {
       ...instagramUser,
     });
-    if ((req as any).status === 200) {
+    if (req.status === 200) {
       return { isSuccess: true, data: req.data };
     }
   } catch {

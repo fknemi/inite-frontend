@@ -1,6 +1,6 @@
 import instance from "../axios";
 import { addInstagramUser } from "../instagram/instagram";
-import AxiosResponse, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import axios from "axios";
 import { NotificationSettings } from "../../@types/types";
 
@@ -53,7 +53,7 @@ export const verifyEmailToken = async (token: string) => {
       token: token,
     });
 
-    if ((req as any).status === 200) {
+    if (req.status === 200) {
       return { isSuccess: true, message: "Email Verified" };
     }
   } catch (err: any) {
@@ -75,25 +75,28 @@ export const verifyEmailToken = async (token: string) => {
 };
 
 export const verifyEmail = async () => {
-  const req = await instance
-    .post("/user/account/email/verify", {})
-    .catch(() => {
-      return { isSuccess: false, data: {} };
-    });
-  if ((req as any).status === 200) {
-    return true;
+  try {
+    const req = await instance.post("/user/account/email/verify", {});
+
+    if (req.status === 200) {
+      return true;
+    }
+  } catch {
+    return false;
   }
+
   return false;
 };
 
 export const fetchUser = async () => {
-  const req = await instance.post("/user/get").catch(() => {
+  try {
+    const req = await instance.post("/user/get");
+    if (req.status === 200) {
+      localStorage.setItem("user", JSON.stringify(req.data));
+      return { isSuccess: true, data: req.data };
+    }
+  } catch {
     return { isSuccess: false, data: {} };
-  });
-
-  if ((req as any).status === 200) {
-    localStorage.setItem("user", JSON.stringify(req.data));
-    return { isSuccess: true, data: (req as any).data };
   }
   return { isSuccess: false, data: {} };
 };
@@ -106,7 +109,7 @@ export const followInstagramUser = async (instagramUser: {
       ...instagramUser,
     });
 
-    if ((req as any).status === 200) {
+    if (req.status === 200) {
       return true;
     }
   } catch (err: any) {
@@ -173,7 +176,7 @@ export const verifyPasswordToken = async (token: string) => {
   };
 };
 
-export const updatePassword = async (token: string, password: string) => {
+export const resetPassword = async (token: string, password: string) => {
   try {
     const req = await instance.post("/user/account/reset/password", {
       token,
@@ -195,6 +198,59 @@ export const updateNotificationSettings = async (
     const req = await instance.post("/user/update/settings/notifications", {
       notifications: notificationSettings,
     });
+    if (req.status === 200) {
+      return true;
+    }
+  } catch {
+    return false;
+  }
+  return false;
+};
+
+export const updatePassword = async (
+  oldPassword: string,
+  newPassword: string,
+  confirmPassword: string
+) => {
+  try {
+    const req = await instance.post("/user/update/password", {
+      oldPassword,
+      newPassword,
+      confirmPassword,
+    });
+    if (req.status === 200) {
+      return {
+        isSuccess: true,
+        _message: "",
+      };
+    }
+  } catch (err) {
+    err = (err as { [key: string]: { [key: string]: string } }).response.data;
+    if (err === "SamePassword") {
+      return {
+        isSuccess: false,
+        _message: "Old Password cannot be the same as New Password",
+      };
+    }
+    if (err === "InvalidPassword") {
+      return {
+        isSuccess: false,
+        _message: "Invalid Password",
+      };
+    }
+    if (err === "PasswordsDoNotMatch") {
+      return {
+        isSuccess: false,
+        _message: "Passwords Do Not Match",
+      };
+    }
+  }
+
+  return { isSuccess: false, _message: "" };
+};
+export const updateEmailSettings = async (notifyEmail: boolean) => {
+  try {
+    const req = await instance.post("/update/email/settings", { notifyEmail });
     if (req.status === 200) {
       return true;
     }

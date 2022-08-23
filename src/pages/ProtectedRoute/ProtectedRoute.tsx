@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Route, useNavigate } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { Props } from "../../@types/types";
-import { fetchUser } from "../../api/user/user";
+import { fetchUser, logout } from "../../api/user/user";
 import {
   userAtom,
   tokensAtom,
@@ -11,7 +11,7 @@ import {
 } from "../../statedrive/atoms";
 
 const ProtectedRoute = ({ component: Component, ...rest }: any) => {
-  const setUser = useSetRecoilState(userAtom);
+  const [user, setUser] = useRecoilState(userAtom);
   const [{ token, refreshToken }, setTokens] = useRecoilState(tokensAtom);
   const setNotificationSettings = useSetRecoilState(notificationSettingsAtom);
   const [following, setFollowing] = useRecoilState(followingAtom);
@@ -20,6 +20,10 @@ const ProtectedRoute = ({ component: Component, ...rest }: any) => {
     if (token && refreshToken) {
       (async () => {
         const { isSuccess, data } = await fetchUser();
+        if (data.length === 0 || !isSuccess) {
+            logout();
+            return navigate("/account/login");
+        }
         if (isSuccess) {
           if (data) {
             localStorage.setItem("user", JSON.stringify(data));
@@ -37,6 +41,8 @@ const ProtectedRoute = ({ component: Component, ...rest }: any) => {
           }
         }
       })();
+    } else {
+      logout();
     }
   };
   useEffect(() => {
@@ -54,7 +60,7 @@ const ProtectedRoute = ({ component: Component, ...rest }: any) => {
   // };
   // }, []);
 
-  return <Component {...rest} />;
+  return <>{token && refreshToken ? <Component {...rest} /> : <>404 page</>}</>;
 };
 
 export default ProtectedRoute;

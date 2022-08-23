@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import {
   NotificationSettings,
   NotificationsDescriptions,
-} from "../@types/types";
+} from "../../@types/types";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { userAtom, notificationSettingsAtom } from "../statedrive/atoms";
-import { updateNotificationSettings } from "../api/user/user";
+import { userAtom, notificationSettingsAtom } from "../../statedrive/atoms";
+import { updateNotificationSettings } from "../../api/user/user";
 
 const Notifications = () => {
   const [user, setUser] = useRecoilState(userAtom);
@@ -48,10 +48,10 @@ const Notifications = () => {
                   type="checkbox"
                   name={notif}
                   checked={notificationSettings[notif]}
-                  onChange={(e) =>
+                  onChange={() =>
                     setNotificationSettings({
                       ...notificationSettings,
-                      [notif]: e.target.checked,
+                      [notif]: !notificationSettings[notif],
                     })
                   }
                 />

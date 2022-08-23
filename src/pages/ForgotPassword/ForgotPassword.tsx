@@ -2,21 +2,19 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { resetUserPassword } from "../../api/user/user";
+import { EMAIL_REGEX } from "../../common/regex";
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
-  const [captcha, setCaptcha] = useState(false);
+  const [reCaptcha, setReCaptcha] = useState(false);
   const [disableButton, setDisableButton] = useState(true);
 
   useEffect(() => {
-    if (
-      /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-z]+)$/.test(email) &&
-      captcha
-    ) {
+    if (EMAIL_REGEX.test(email) && reCaptcha) {
       setDisableButton(false);
     } else {
       setDisableButton(true);
     }
-  }, [email, captcha]);
+  }, [email, reCaptcha]);
 
   return (
     <div>
@@ -27,14 +25,14 @@ const ForgotPassword = () => {
           name="email"
           placeholder="email"
           onChange={(e) => setEmail(e.target.value)}
-        />
+        /> 
         <ReCAPTCHA
-          sitekey=""
+          sitekey="6Lf4n5YhAAAAAA-SNgwfmRkJ707XvDTACSSxC-Xp"
           onChange={() => {
-            setCaptcha(true);
+            setReCaptcha(true);
           }}
-          onErrored={() => setCaptcha(false)}
-          onExpired={() => setCaptcha(false)}
+          onErrored={() => setReCaptcha(false)}
+          onExpired={() => setReCaptcha(false)}
         />
 
         <button

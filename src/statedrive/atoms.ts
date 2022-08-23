@@ -1,7 +1,9 @@
 import { atom, RecoilState } from "recoil";
 import { Atoms, NotificationSettings } from "../@types/types";
 
-let user = JSON.parse(localStorage.getItem("user") as string);
+let user = localStorage.getItem("user")
+  ? JSON.parse(localStorage.getItem("user") as string)
+  : {};
 
 export const registerAtom: RecoilState<Atoms["registerForm"]> = atom({
   key: "register",
@@ -17,7 +19,9 @@ export const registerAtom: RecoilState<Atoms["registerForm"]> = atom({
 export const redirectAtom = atom({
   key: "redirect",
   default:
-    localStorage.getItem("redirect") === "/dashboard" ? "/dashboard" : "/login",
+    localStorage.getItem("redirect") === "/dashboard"
+      ? "/dashboard"
+      : "/account/login",
 });
 export const loggedInStatusAtom = atom({
   key: "loggedInStatus",
@@ -27,7 +31,7 @@ export const loginAtom = atom({
   key: "login",
   default: {
     email: "test@gmail.com",
-    password: "test",
+    password: "testTEST@1234",
   },
 });
 export const tokensAtom = atom({
@@ -44,7 +48,9 @@ export const userAtom = atom({
 });
 export const instagramUserAtom = atom({
   key: "instagramUser",
-  default: JSON.parse(localStorage.getItem("instagramUser") as string) || {},
+  default: localStorage.getItem("instagramUser")
+    ? JSON.parse(localStorage.getItem("instagramUser") as string) || {}
+    : {},
 });
 export const followingAtom = atom({
   key: "following",
@@ -69,13 +75,19 @@ export const recentChangesAtom = atom({
 });
 export const notificationSettingsAtom = atom<NotificationSettings>({
   key: "notificationSettings",
-  default: JSON.parse(localStorage.getItem("user") as string).notifications || {
-    newAccountNameChange: true,
-    newPosts: true,
-    newFollowers: true,
-    startedFollowingNewUsers: true,
-    newBiography: true,
-    newAvatar: true,
-    newAccountPrivacyChange: true,
-  },
+  default: localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user") as string).notifications || {
+        newAccountNameChange: true,
+        newPosts: true,
+        newFollowers: true,
+        startedFollowingNewUsers: true,
+        newBiography: true,
+        newAvatar: true,
+        newAccountPrivacyChange: true,
+      }
+    : null,
+});
+export const notifyEmailAtom = atom<boolean>({
+  key: "notifyEmail",
+  default: user.notifyEmail || true,
 });
