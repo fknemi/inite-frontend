@@ -20,25 +20,22 @@ const ProtectedRoute = ({ component: Component, ...rest }: any) => {
     if (token && refreshToken) {
       (async () => {
         const { isSuccess, data } = await fetchUser();
-        if (data.length === 0 || !isSuccess) {
-            logout();
-            return navigate("/account/login");
+        if (!isSuccess || Object.keys(data).length === 0) {
+          logout();
+          return navigate("/account/login");
         }
-        if (isSuccess) {
-          if (data) {
-            localStorage.setItem("user", JSON.stringify(data));
-            setUser(data);
-            setFollowing(
-              data.following.map(({ username }: any) => {
-                return username;
-              })
-            );
-            setNotificationSettings(data.notifications);
 
-            if (!data.emailVerified) {
-              return navigate("/account/verify/email");
-            }
-          }
+        localStorage.setItem("user", JSON.stringify(data));
+        setUser(data);
+        setFollowing(
+          data.following.map(({ username }: any) => {
+            return username;
+          })
+        );
+        setNotificationSettings(data.notifications);
+
+        if (!data.emailVerified) {
+          return navigate("/account/verify/email");
         }
       })();
     } else {

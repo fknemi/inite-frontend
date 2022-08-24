@@ -7,9 +7,8 @@ import { followingAtom, tokensAtom, userAtom } from "../../statedrive/atoms";
 
 const Dashboard = () => {
   const [user, setUser] = useRecoilState(userAtom);
-  // const [{ token, refreshToken }, setTokens] = useRecoilState(tokensAtom);
   const [following, setFollowing] = useRecoilState(followingAtom);
-  // const navigate = useNavigate();
+  
 
   return (
     <Layout>

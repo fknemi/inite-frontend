@@ -1,8 +1,28 @@
 import { atom, RecoilState } from "recoil";
-import { Atoms, NotificationSettings } from "../@types/types";
+import {
+  ADMIN,
+  Atoms,
+  INSTAGRAM_USER,
+  NotificationSettings,
+  USER,
+} from "../@types/types";
+
+const parseJSON = (item: string) => {
+  try {
+    return JSON.parse(item);
+  } catch {
+    return {};
+  }
+};
 
 let user = localStorage.getItem("user")
-  ? JSON.parse(localStorage.getItem("user") as string)
+  ? parseJSON(localStorage.getItem("user") as string)
+  : {};
+let admin = localStorage.getItem("admin")
+  ? parseJSON(localStorage.getItem("admin") as string)
+  : {};
+let instagramUser = localStorage.getItem("instagramUser")
+  ? parseJSON(localStorage.getItem("instagramUser") as string)
   : {};
 
 export const registerAtom: RecoilState<Atoms["registerForm"]> = atom({
@@ -30,8 +50,8 @@ export const loggedInStatusAtom = atom({
 export const loginAtom = atom({
   key: "login",
   default: {
-    email: "test@gmail.com",
-    password: "testTEST@1234",
+    email: "owner@gmail.com",
+    password: "1234",
   },
 });
 export const tokensAtom = atom({
@@ -44,18 +64,16 @@ export const tokensAtom = atom({
 
 export const userAtom = atom({
   key: "user",
-  default: user || {},
+  default: user,
 });
 export const instagramUserAtom = atom({
   key: "instagramUser",
-  default: localStorage.getItem("instagramUser")
-    ? JSON.parse(localStorage.getItem("instagramUser") as string) || {}
-    : {},
+  default: instagramUser,
 });
 export const followingAtom = atom({
   key: "following",
   default:
-    user && user.following
+    Object.keys(user).length && user.following
       ? user.following.map(
           (followedUser: { username: string }) => followedUser.username
         )
@@ -75,8 +93,8 @@ export const recentChangesAtom = atom({
 });
 export const notificationSettingsAtom = atom<NotificationSettings>({
   key: "notificationSettings",
-  default: localStorage.getItem("user")
-    ? JSON.parse(localStorage.getItem("user") as string).notifications || {
+  default: Object.keys(user).length
+    ? user.notifications || {
         newAccountNameChange: true,
         newPosts: true,
         newFollowers: true,
@@ -90,4 +108,11 @@ export const notificationSettingsAtom = atom<NotificationSettings>({
 export const notifyEmailAtom = atom<boolean>({
   key: "notifyEmail",
   default: user.notifyEmail || true,
+});
+export const adminAtom = atom<ADMIN>({
+  key: "admin",
+  default: {
+    ...admin,
+    loginTimestamp: parseInt(localStorage.getItem("loggedInAt") as string),
+  },
 });

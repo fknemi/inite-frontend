@@ -127,15 +127,6 @@ export type getUser = Promise<{
   following: string[];
 }>;
 
-
-
-
-
-
-
-
-
-
 export interface USER {
   name: string;
   password: string;
@@ -154,8 +145,6 @@ export interface USER {
   banReason: string;
   reports: REPORT[];
   instagramProfile: INSTAGRAM_USER;
-  isAdmin: ADMIN;
-  isOwner: OWNER;
   notifyEmail: boolean;
   notifications: NotificationSettings;
   timestamp: string;
@@ -194,18 +183,31 @@ export interface REPORT {
   timestamp: string;
 }
 
+// name: admin.userInfo.name,
+//     username: admin.userInfo.username,
+//     avatar: admin.userInfo.avatar,
+//     isBanned: admin.userInfo.isBanned,
+//     isAdmin: admin.isAdmin,
+//     isOwner: isOwner,
+//     emailVerified: admin.userInfo.emailVerified,
+//     permissions: permissions,
+
 export interface ADMIN {
-  userInfo: USER;
-  isAdmin: boolean;
-  adminPermissions: {
+  loginTimestamp: number | undefined,
+  name: string | undefined;
+  username: string | undefined;
+  avatar: string | undefined;
+  isAdmin: boolean | undefined;
+  isBanned: boolean | undefined;
+  emailVerified: boolean | undefined;
+  permissions: {
     banUser: boolean;
     unbanUser: boolean;
     banInstagramUser: boolean;
     unbanInstagramUser: boolean;
-  };
+  } | undefined;
 }
 export interface OWNER {
-  userInfo: USER;
   isAdmin: boolean;
   ownerPermissions: {
     changeSelfUsername: boolean;

@@ -16,12 +16,11 @@ import {
   ForgotPassword,
   ResetPassword,
   Settings,
+  AdminLogin,
+  AdminDashboard,
 } from "./pages/exports";
 import ProtectedRoute from "./pages/ProtectedRoute/ProtectedRoute";
-/**
- * TODO Settings Page
- * TODO Admin Page
- */
+import AdminRoute from "./pages/Admin/AdminRoute/AdminRoute";
 
 const App = () => {
   return (
@@ -32,6 +31,14 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route
+              path="/admin/login"
+              element={<ProtectedRoute component={AdminLogin} />}
+            />
+            <Route
+              path="/admin/dashboard"
+              element={<ProtectedRoute component={() => <AdminRoute component={AdminDashboard}/>} />}
+            />
             <Route
               path="/dashboard"
               element={<ProtectedRoute component={Dashboard} />}

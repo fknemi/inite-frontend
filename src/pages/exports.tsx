@@ -1,8 +1,10 @@
 import { lazy } from "react";
 
+
 const Home = lazy(() => import("./Home/Home"));
 const About = lazy(() => import("./About/About"));
-const Admin = lazy(() => import("./Admin/Admin"));
+const AdminLogin = lazy(() => import("./Admin/Login/Login"));
+const AdminDashboard = lazy(() => import("./Admin/Dashboard/Dashboard"));
 const InstagramUserProfile = lazy(
   () => import("./InstagramUserProfile/InstagramUserProfile")
 );
@@ -20,7 +22,8 @@ const ResetPassword = lazy(() => import("./ResetPassword/ResetPassword"));
 export {
   Home,
   About,
-  Admin,
+  AdminLogin,
+  AdminDashboard,
   Login,
   Register,
   SearchInstagramUsers,
