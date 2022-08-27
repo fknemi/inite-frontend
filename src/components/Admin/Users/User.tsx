@@ -3,13 +3,15 @@ import { useState } from "react";
 import ActionButtons from "./ActionButtons";
 
 interface USER_PROPS {
-  isOwner: boolean | undefined;
+  _isOwner: boolean | undefined;
   user: {
     name: string;
     username: string;
     avatar: string;
     timestamp: string;
     isBanned: boolean;
+    isAdmin: boolean;
+    isOwner: boolean;
   };
   timeFormat: boolean;
 }
@@ -27,8 +29,9 @@ const monthNames = [
   "November",
   "December",
 ];
-const User = ({ isOwner, user, timeFormat }: USER_PROPS) => {
-  let { name, username, avatar, timestamp, isBanned } = user;
+const User = ({ _isOwner, user, timeFormat }: USER_PROPS) => {
+  let { name, username, avatar, timestamp, isBanned, isAdmin, isOwner } =
+    user;
 
   const getAccountCreatedAt = () => {
     let date = new Date(parseInt(timestamp));
@@ -66,10 +69,11 @@ const User = ({ isOwner, user, timeFormat }: USER_PROPS) => {
           </svg>
         </div>
       </span>
+      <span>IS ADMIN: {isAdmin ? "ADMIN" : ""}</span>
       <span>ACCOUNT CREATED AT: {accountCreatedAt}</span>
       <ActionButtons
         _isBanned={isBanned}
-        _isOwner={isOwner}
+        _isOwner={_isOwner}
         username={username}
       />
     </div>

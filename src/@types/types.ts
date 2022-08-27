@@ -148,18 +148,17 @@ export interface USER {
   notifyEmail: boolean;
   notifications: NotificationSettings;
   timestamp: string;
+  roles: {
+    isAdmin: boolean;
+    isOwner: boolean;
+  };
 }
 
 export interface INSTAGRAM_USER {
   name: string;
   username: string;
-  biography: {
-    recent: boolean;
-    text: string;
-    externalUrls: string[];
-    timestamp: string;
-  }[];
-  avatars: { url: string; recent: boolean; timestamp: string }[];
+  avatar: string;
+  biography: string;
   isPrivate: boolean;
   media: {
     type: { [key: string]: any; type: string; url: string; timestamp: string };
@@ -173,16 +172,6 @@ export interface INSTAGRAM_USER {
   followedBy: { user: USER; timestamp: string }[];
 }
 
-export interface REPORT {
-  userInfo: USER;
-  reason: string;
-  description: string;
-  accountReported: INSTAGRAM_USER;
-  accountReportedUsername: string;
-  readStatus: boolean;
-  timestamp: string;
-}
-
 // name: admin.userInfo.name,
 //     username: admin.userInfo.username,
 //     avatar: admin.userInfo.avatar,
@@ -193,20 +182,22 @@ export interface REPORT {
 //     permissions: permissions,
 
 export interface ADMIN {
-  isOwner: boolean | undefined
-  loginTimestamp: number | undefined,
+  isOwner: boolean | undefined;
+  loginTimestamp: number | undefined;
   name: string | undefined;
   username: string | undefined;
   avatar: string | undefined;
   isAdmin: boolean | undefined;
   isBanned: boolean | undefined;
   emailVerified: boolean | undefined;
-  permissions: {
-    banUser: boolean;
-    unbanUser: boolean;
-    banInstagramUser: boolean;
-    unbanInstagramUser: boolean;
-  } | undefined;
+  permissions:
+    | {
+        banUser: boolean;
+        unbanUser: boolean;
+        banInstagramUser: boolean;
+        unbanInstagramUser: boolean;
+      }
+    | undefined;
 }
 export interface OWNER {
   isAdmin: boolean;
@@ -216,4 +207,22 @@ export interface OWNER {
     deleteInstagramUser: boolean;
     deleteInstagramUserMedia: boolean;
   };
+}
+
+export interface REPORT {
+  _id: string;
+  name: string;
+  reportedBy: string;
+  reason: string;
+  description: string;
+  accountReported: {
+    username: string;
+  };
+  readStatus: boolean;
+  timestamp: string;
+}
+export interface LOG {
+  _id: string;
+  text: string;
+  timestamp: string;
 }

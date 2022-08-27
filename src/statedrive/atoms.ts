@@ -11,19 +11,14 @@ const parseJSON = (item: string) => {
   try {
     return JSON.parse(item);
   } catch {
-    return {};
+    return null;
   }
 };
 
-let user = localStorage.getItem("user")
-  ? parseJSON(localStorage.getItem("user") as string)
-  : {};
-let admin = localStorage.getItem("admin")
-  ? parseJSON(localStorage.getItem("admin") as string)
-  : {};
-let instagramUser = localStorage.getItem("instagramUser")
-  ? parseJSON(localStorage.getItem("instagramUser") as string)
-  : {};
+let user = parseJSON(localStorage.getItem("user") as string) || {};
+let admin = parseJSON(localStorage.getItem("admin") as string) || {};
+let instagramUser =
+  parseJSON(localStorage.getItem("instagramUser") as string) || {};
 
 export const registerAtom: RecoilState<Atoms["registerForm"]> = atom({
   key: "register",
@@ -116,4 +111,17 @@ export const instagramUsersAtom = atom({
 export const usersAtom = atom({
   key: "users",
   default: [],
+});
+export const showReportModalAtom = atom({
+  key: "reportUser",
+  default: false,
+});
+export const readReportsAtom = atom<Set<string>>({
+  key: "readReports",
+  default: new Set(parseJSON("readReports")) || new Set([]), 
+});
+
+export const timeFormatAtom = atom<boolean> ({
+  key: "timeFormat",
+  default: true,
 });

@@ -147,3 +147,105 @@ export const deleteUserMedia = async (isOwner: boolean, username: string) => {
   }
   return { isSuccess: false, wasAuthorized: true };
 };
+
+export const getLogs = async () => {
+  try {
+    const req = await instance.post("/owner/get/logs");
+
+    if (req.status === 200) {
+      return { isSuccess: true, wasAuthorized: true, data: req.data };
+    }
+  } catch (err: any) {
+    if (err.response.status === 401) {
+      return { isSuccess: false, wasAuthorized: false, data: {} };
+    }
+    return { isSuccess: false, wasAuthorized: true, data: {} };
+  }
+  return { isSuccess: false, wasAuthorized: true, data: {} };
+};
+
+export const resetUserPassword = async (
+  isOwner: boolean,
+  username: string,
+  email = ""
+) => {
+  if (!isOwner) {
+    return { isSuccess: false, wasAuthorized: false };
+  }
+  try {
+    const req = await instance.post("/owner/user/account/reset/password", {
+      username,
+      email,
+    });
+
+    if (req.status === 200) {
+      return { isSuccess: true, wasAuthorized: true };
+    }
+  } catch (err: any) {
+    if (err.response.status === 401) {
+      return { isSuccess: false, wasAuthorized: false };
+    }
+    return { isSuccess: false, wasAuthorized: true };
+  }
+  return { isSuccess: false, wasAuthorized: true };
+};
+
+
+export const promoteAdmin = async (
+  isOwner: boolean,
+  username: string,
+  email: string
+) => {
+  if(!isOwner){
+    return { isSuccess: false, wasAuthorized: false };
+  }
+  if(!email || !username){
+    return { isSuccess: false, wasAuthorized: true };
+  }
+  try {
+    const req = await instance.post("/owner/promote/admin", {
+      username,
+      email,
+    });
+
+    if (req.status === 200) {
+      return { isSuccess: true, wasAuthorized: true };
+    }
+  } catch (err: any) {
+    if (err.response.status === 401) {
+      return { isSuccess: false, wasAuthorized: false };
+    }
+    return { isSuccess: false, wasAuthorized: true };
+  }
+  return { isSuccess: false, wasAuthorized: true };
+}
+
+export const removeAdmin = async (
+  isOwner: boolean,
+  username: string,
+  email: string
+) => {
+  if(!isOwner){
+    return { isSuccess: false, wasAuthorized: false };
+  }
+  if(!email || !username){
+    return { isSuccess: false, wasAuthorized: true };
+  }
+  try {
+    const req = await instance.post("/owner/remove/admin", {
+      username,
+      email,
+    });
+
+    if (req.status === 200) {
+      return { isSuccess: true, wasAuthorized: true };
+    }
+  } catch (err: any) {
+    if (err.response.status === 401) {
+      return { isSuccess: false, wasAuthorized: false };
+    }
+    return { isSuccess: false, wasAuthorized: true };
+  }
+  return { isSuccess: false, wasAuthorized: true };
+}
+

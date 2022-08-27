@@ -267,3 +267,37 @@ export const updateEmailSettings = async (notifyEmail: boolean) => {
   }
   return false;
 };
+
+export const reportInstagramUser = async (
+  accountReported: { username: string },
+  reason: string,
+  description: string
+) => {
+  try {
+    const req = await instance.post("/user/report", {
+      accountReported,
+      reason,
+      description,
+    });
+    console.log(req);
+
+    if (req.status === 200) {
+      return true;
+    }
+  } catch {
+    return false;
+  }
+  return false;
+};
+
+export const updateReadReports = async (readReports: Set<string>) => {
+  try {
+    const req = await instance.post("/admin/read/reports", {readReports: [...readReports]});
+    if (req.status === 200) {
+      return true;
+    }
+  } catch {
+    return false;
+  }
+  return true;
+};

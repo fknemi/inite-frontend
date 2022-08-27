@@ -64,7 +64,15 @@ export const getInstagramUsers = async () => {
 
 export const getReports = async () => {
   try {
-  } catch {}
+    const req = await instance.post("/admin/get/reports");
+
+    if (req.status === 200) {
+      return { isSuccess: true, data: req.data };
+    }
+  } catch {
+    return { isSuccess: false, data: {} };
+  }
+  return { isSuccess: false, data: {} };
 };
 
 export const banUser = async (username: string) => {
@@ -131,3 +139,4 @@ export const unbanInstagramUser = async (username: string) => {
   }
   return { isSuccess: false, wasAuthorized: true };
 };
+
