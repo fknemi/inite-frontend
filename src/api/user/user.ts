@@ -11,27 +11,35 @@ export const register = async (
   password: string,
   gender: string
 ) => {
-  const req = await instance.post("/user/register", {
-    name,
-    username,
-    email,
-    password,
-    gender,
-  });
-  if (req.status === 200) {
-    return true;
+  try {
+    const req = await instance.post("/user/register", {
+      name,
+      username,
+      email,
+      password,
+      gender,
+    });
+    if (req.status === 200) {
+      return true;
+    }
+  } catch {
+    return false;
   }
   return false;
 };
 
 export const login = async (email: string, password: string) => {
-  const req = await instance.post("/user/login", {
-    email,
-    password,
-  });
+  try {
+    const req = await instance.post("/user/login", {
+      email,
+      password,
+    });
 
-  if (req.status === 200) {
-    return { isSuccess: true, user: req.data };
+    if (req.status === 200) {
+      return { isSuccess: true, user: req.data };
+    }
+  } catch {
+    return { isSuccess: false, user: {} };
   }
   return { isSuccess: false, user: {} };
 };

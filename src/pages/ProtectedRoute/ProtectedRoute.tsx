@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Route, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Route, useNavigate, useLocation } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { Props } from "../../@types/types";
 import { fetchUser, logout } from "../../api/user/user";
@@ -15,26 +15,52 @@ const ProtectedRoute = ({ component: Component, ...rest }: any) => {
   const [{ token, refreshToken }, setTokens] = useRecoilState(tokensAtom);
   const setNotificationSettings = useSetRecoilState(notificationSettingsAtom);
   const [following, setFollowing] = useRecoilState(followingAtom);
+  const [didLogin, setDidLogin] = useState(false);
+  const location = useLocation();
+
   const navigate = useNavigate();
+  const parseJSON = (item: string) => {
+    try {
+      return JSON.parse(localStorage.getItem(item) as string);
+    } catch {
+      return false;
+    }
+    return false;
+  };
+  useEffect(() => {
+    let locationState = location.state as Location & {
+      didLogin: boolean | undefined;
+    };
+    setDidLogin((locationState && locationState.didLogin) || false);
+  }, []);
+
   const updateUser = () => {
     if (token && refreshToken) {
       (async () => {
-        const { isSuccess, data } = await fetchUser();
-        if (!isSuccess || Object.keys(data).length === 0) {
+        const { isSuccess, data } = await fetchUser(); //nosonar
+        if (!Object.keys(data).length) {
+          return;
+        }
+        if (
+          !Object.keys(user).length &&
+          !isSuccess &&
+          !Object.keys(data).length
+        ) {
           logout();
           return navigate("/account/login");
         }
-
         localStorage.setItem("user", JSON.stringify(data));
         setUser(data);
-        setFollowing(
-          data.following.map(({ username }: any) => {
-            return username;
-          })
-        );
+        if (data.following) {
+          setFollowing(
+            data.following.map(({ username }: any) => {
+              return username;
+            })
+          );
+        }
         setNotificationSettings(data.notifications);
 
-        if (!data.emailVerified) {
+        if (!Object.keys(user).length && !data.emailVerified) {
           return navigate("/account/verify/email");
         }
       })();

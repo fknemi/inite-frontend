@@ -3,17 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { login } from "../../api/user/user";
 import Layout from "../../components/Layout";
-import {
-  loginAtom,
-  redirectAtom,
-  userAtom,
-  tokensAtom,
-} from "../../statedrive/atoms";
+import { loginAtom, userAtom, tokensAtom } from "../../statedrive/atoms";
 const Login = () => {
   const [loginForm, setLoginForm]: any = useRecoilState(loginAtom);
   const setUser = useSetRecoilState(userAtom);
   const setTokens = useSetRecoilState(tokensAtom);
-  const [redirect, setRedirect] = useRecoilState(redirectAtom);
   const navigate = useNavigate();
   return (
     <Layout>
@@ -55,19 +49,20 @@ const Login = () => {
             }
             console.log(email, password);
             const { isSuccess, user }: any = await login(email, password);
-
-            if (isSuccess && user) {
+            if (isSuccess) {
               let token = localStorage.getItem("x-token") as string;
               let refreshToken = localStorage.getItem(
                 "x-refresh-token"
               ) as string;
+              // localStorage.setItem("user", JSON.stringify(user))
               if (token && refreshToken) {
+                setUser(user);
                 setTokens({
                   token: token,
                   refreshToken: refreshToken,
                 });
               }
-              return navigate(redirect);
+              return navigate("/dashboard");
             }
           }}
         >

@@ -119,7 +119,7 @@ const AdminLogin = () => {
                 "loggedInAt",
                 new Date().getTime().toString()
               );
-              return navigate("/admin/dashboard");
+              return navigate("/admin/dashboard", {state: {didLogin: true}});
             }
             if (data.isBanned) {
               return navigate("/user/banned");

@@ -29,15 +29,19 @@ const App = () => {
         <Suspense fallback={"Loading"}>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/account/register" element={<Register />} />
+            <Route path="/account/login" element={<Login />} />
             <Route
               path="/admin/login"
               element={<ProtectedRoute component={AdminLogin} />}
             />
             <Route
               path="/admin/dashboard"
-              element={<ProtectedRoute component={() => <AdminRoute component={AdminDashboard}/>} />}
+              element={
+                <ProtectedRoute
+                  component={() => <AdminRoute component={AdminDashboard} />}
+                />
+              }
             />
             <Route
               path="/dashboard"

@@ -5,8 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { ADMIN } from "../../../@types/types";
 import { fetchAdmin, logout } from "../../../api/admin/admin";
 
-// const MAX_ADMIN_LOGGED_IN_TIME = 216 ** 4 * 10 ** 5;
-const MAX_ADMIN_LOGGED_IN_TIME = 2000;
+const MAX_ADMIN_LOGGED_IN_TIME = 216 ** 4 * 10 ** 5;
 
 const AdminRoute = ({ component: Component, ...rest }: any) => {
   let [admin, setAdmin] = useRecoilState(adminAtom);
@@ -17,7 +16,7 @@ const AdminRoute = ({ component: Component, ...rest }: any) => {
         logout();
         return;
       }
-      const { isSuccess, data } = await fetchAdmin();
+      let { isSuccess, data } = await fetchAdmin();
       if (!isSuccess || Object.keys(data).length === 0) {
         localStorage.removeItem("admin");
         return setAdmin({} as ADMIN);
@@ -27,19 +26,14 @@ const AdminRoute = ({ component: Component, ...rest }: any) => {
         timestamp = new Date().getTime();
         localStorage.setItem("loggedInAt", timestamp.toString());
       }
-      setAdmin({
-        ...data,
-        loginTimestamp: timestamp,
-      });
-      localStorage.setItem("admin", JSON.stringify(admin));
-      if (admin.loginTimestamp) {
-        if (
-          new Date().getTime() - admin.loginTimestamp >=
-          MAX_ADMIN_LOGGED_IN_TIME
-        ) {
+
+      setAdmin(data);
+      localStorage.setItem("admin", JSON.stringify(data));
+      if (timestamp) {
+        if (new Date().getTime() - timestamp >= MAX_ADMIN_LOGGED_IN_TIME) {
           logout();
           setAdmin({} as ADMIN);
-          return navigate("/admin/login", {state: {sessionExpired: true}});
+          return navigate("/admin/login", { state: { sessionExpired: true } });
         }
       }
     })();

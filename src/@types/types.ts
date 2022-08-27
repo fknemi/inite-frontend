@@ -193,6 +193,7 @@ export interface REPORT {
 //     permissions: permissions,
 
 export interface ADMIN {
+  isOwner: boolean | undefined
   loginTimestamp: number | undefined,
   name: string | undefined;
   username: string | undefined;

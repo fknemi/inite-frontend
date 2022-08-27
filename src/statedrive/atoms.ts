@@ -36,13 +36,6 @@ export const registerAtom: RecoilState<Atoms["registerForm"]> = atom({
     confirmPassword: "",
   },
 });
-export const redirectAtom = atom({
-  key: "redirect",
-  default:
-    localStorage.getItem("redirect") === "/dashboard"
-      ? "/dashboard"
-      : "/account/login",
-});
 export const loggedInStatusAtom = atom({
   key: "loggedInStatus",
   default: false,
@@ -115,4 +108,12 @@ export const adminAtom = atom<ADMIN>({
     ...admin,
     loginTimestamp: parseInt(localStorage.getItem("loggedInAt") as string),
   },
+});
+export const instagramUsersAtom = atom({
+  key: "instagramUsers",
+  default: [],
+});
+export const usersAtom = atom({
+  key: "users",
+  default: [],
 });
