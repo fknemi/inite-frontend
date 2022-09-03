@@ -4,21 +4,24 @@ import ReactPaginate from "react-paginate";
 import { LOG } from "../../@types/types";
 import Log from "../Admin/Logs/Log";
 
-function Items({ currentItems, Component }: any) {
+function Items({ currentItems, Component, timeFormat }: any) {
+
+
   return (
     <>
       {currentItems &&
         currentItems.map((item: any) => (
-          <Component key={item._id} item={item} />
+          <Component key={item._id} item={item} timeFormat={timeFormat} />
         ))}
     </>
   );
 }
 
-function PaginatedItems({ itemsPerPage, items, Component, ...props }: any) {
+function PaginatedItems({ itemsPerPage, items, Component,timeFormat }: any) {
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
+  
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
@@ -35,7 +38,7 @@ function PaginatedItems({ itemsPerPage, items, Component, ...props }: any) {
 
   return (
     <>
-      <Items currentItems={currentItems} Component={Component} {...props} />
+      <Items currentItems={currentItems} Component={Component} timeFormat={timeFormat} />
       <ReactPaginate
         breakLabel="..."
         nextLabel="next >"

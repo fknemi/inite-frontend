@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { getTimestampDateTime } from "../../../common/utils";
 import ActionButtons from "./ActionButtons";
 
 interface USER_PROPS {
@@ -15,46 +16,14 @@ interface USER_PROPS {
   };
   timeFormat: boolean;
 }
-const monthNames = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-const User = ({ _isOwner, user, timeFormat }: USER_PROPS) => {
-  let { name, username, avatar, timestamp, isBanned, isAdmin, isOwner } =
-    user;
 
-  const getAccountCreatedAt = () => {
-    let date = new Date(parseInt(timestamp));
-    let hours = date.getHours() - (timeFormat ? 12 : 0);
-    return `${
-      timeFormat
-        ? hours < 10
-          ? hours === 0
-            ? 12
-            : "0" + hours
-          : hours
-        : hours < 10
-        ? "0" + hours
-        : hours
-    }:${date.getMinutes()}:${date.getSeconds()} ${date.getDay()} ${
-      monthNames[date.getMonth()]
-    } ${date.getFullYear()}`;
-  };
+const User = ({ _isOwner, user, timeFormat }: USER_PROPS) => {
+  let { name, username, avatar, timestamp, isBanned, isAdmin, isOwner } = user;
 
   const [accountCreatedAt, setAccountCreatedAt]: any = useState("N/A");
 
   useEffect(() => {
-    setAccountCreatedAt(getAccountCreatedAt());
+    setAccountCreatedAt(getTimestampDateTime(timestamp, timeFormat));
   }, [timeFormat]);
 
   return (

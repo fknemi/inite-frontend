@@ -16,7 +16,7 @@ export const adminLogin = async (username: string, password: string) => {
 
 export const fetchAdmin = async () => {
   try {
-    const req = await instance.post("/admin/get");
+    const req = await instance.get("/admin");
     if (req.status === 200) {
       return { isSuccess: true, data: req.data };
     }
@@ -41,7 +41,7 @@ export const logout = () => {
 
 export const getUsers = async () => {
   try {
-    const req = await instance.post("/admin/get/users");
+    const req = await instance.get("/admin/get/users");
     if (req.status === 200) {
       return { isSuccess: true, data: req.data };
     }
@@ -64,7 +64,7 @@ export const getInstagramUsers = async () => {
 
 export const getReports = async () => {
   try {
-    const req = await instance.post("/admin/get/reports");
+    const req = await instance.get("/admin/get/reports");
 
     if (req.status === 200) {
       return { isSuccess: true, data: req.data };
@@ -77,7 +77,7 @@ export const getReports = async () => {
 
 export const banUser = async (username: string) => {
   try {
-    const req = await instance.post("/admin/user/ban/", {
+    const req = await instance.put("/admin/user/ban/", {
       username,
     });
     if (req.status === 200) {
@@ -93,7 +93,7 @@ export const banUser = async (username: string) => {
 };
 export const unbanUser = async (username: string) => {
   try {
-    const req = await instance.post("/admin/user/unban/", {
+    const req = await instance.put("/admin/user/unban/", {
       username,
     });
     if (req.status === 200) {
@@ -109,7 +109,7 @@ export const unbanUser = async (username: string) => {
 };
 export const banInstagramUser = async (username: string) => {
   try {
-    const req = await instance.post("/admin/instagram/user/ban", {
+    const req = await instance.put("/admin/instagram/user/ban", {
       username,
     });
     if (req.status === 200) {
@@ -125,7 +125,7 @@ export const banInstagramUser = async (username: string) => {
 };
 export const unbanInstagramUser = async (username: string) => {
   try {
-    const req = await instance.post("/admin/instagram/user/unban", {
+    const req = await instance.put("/admin/instagram/user/unban", {
       username,
     });
     if (req.status === 200) {

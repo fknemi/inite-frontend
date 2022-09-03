@@ -1,10 +1,10 @@
 import "./styles/tailwind.css";
 import "./styles/custom.css";
 import "./styles/app.css";
-import React from "react";
+import React, { useEffect } from "react";
 import { Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { RecoilRoot } from "recoil";
+import { RecoilRoot, useSetRecoilState } from "recoil";
 import {
   Home,
   Register,
@@ -18,9 +18,12 @@ import {
   Settings,
   AdminLogin,
   AdminDashboard,
+  Notifications,
 } from "./pages/exports";
 import ProtectedRoute from "./pages/ProtectedRoute/ProtectedRoute";
 import AdminRoute from "./pages/Admin/AdminRoute/AdminRoute";
+
+// TODO Notification Component Drag Remove
 
 const App = () => {
   return (
@@ -60,6 +63,11 @@ const App = () => {
               path="/instagram/search"
               element={<ProtectedRoute component={SearchInstagramUsers} />}
             />
+            <Route
+              path="/notifications"
+              element={<ProtectedRoute component={Notifications} />}
+            />
+
             <Route path="/account/verify/email/" element={<VerifyEmail />} />
             <Route
               path="/account/forgot/password"

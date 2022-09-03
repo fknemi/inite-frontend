@@ -7,7 +7,11 @@ import {
   getUserDetails,
 } from "../../../api/owner/owner";
 import { usersAtom } from "../../../statedrive/atoms";
-import { resetUserPassword, promoteAdmin, removeAdmin } from '../../../api/owner/owner';
+import {
+  resetUserPassword,
+  promoteAdmin,
+  removeAdmin,
+} from "../../../api/owner/owner";
 
 let BUTTON_STYLE = "mt-5 disabled:bg-gray-400 w-40 h-7 rounded-md bg-green-400";
 
@@ -69,6 +73,9 @@ const ActionButtons = ({ _isBanned, _isOwner, username }: any) => {
                 setIsOwner(false);
                 return setHideActions(true);
               }
+
+              console.log(data);
+
               setUserDetails(data);
             }}
           >
@@ -128,7 +135,7 @@ const ActionButtons = ({ _isBanned, _isOwner, username }: any) => {
                 setIsOwner(false);
                 return setHideActions(true);
               }
-              if(!isSuccess){
+              if (!isSuccess) {
                 return alert("FAILED TO PROMOTE ADMIN");
               }
               return alert(`${username} PROMOTED TO ADMIN`);
@@ -150,7 +157,7 @@ const ActionButtons = ({ _isBanned, _isOwner, username }: any) => {
                 setIsOwner(false);
                 return setHideActions(true);
               }
-              if(!isSuccess){
+              if (!isSuccess) {
                 return alert("FAILED TO REMOVE ADMIN");
               }
               return alert(`${username} REMOVED FROM ADMIN`);

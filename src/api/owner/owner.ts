@@ -54,7 +54,7 @@ export const deleteInstagramUser = async (
     return { isSuccess: false, wasAuthorized: true };
   }
   try {
-    const req = await instance.post("/owner/instagram/user/delete", {
+    const req = await instance.put("/owner/instagram/user/delete", {
       username,
       deleteMedia,
     });
@@ -82,7 +82,7 @@ export const deleteInstagramUserMedia = async (
     return { isSuccess: false, wasAuthorized: true };
   }
   try {
-    const req = await instance.post("/owner/instagram/user/media/delete", {
+    const req = await instance.put("/owner/instagram/user/media/delete", {
       username,
     });
     console.log("====================================");
@@ -112,7 +112,7 @@ export const deleteUser = async (
     return { isSuccess: false, wasAuthorized: true };
   }
   try {
-    const req = await instance.post("/owner/user/delete", {
+    const req = await instance.put("/owner/user/delete", {
       username,
       deleteMedia,
     });
@@ -133,7 +133,7 @@ export const deleteUserMedia = async (isOwner: boolean, username: string) => {
     return { isSuccess: false, wasAuthorized: false };
   }
   try {
-    const req = await instance.post("/owner/user/media/delete", {
+    const req = await instance.put("/owner/user/media/delete", {
       username,
     });
     if (req.status === 200) {
@@ -150,7 +150,7 @@ export const deleteUserMedia = async (isOwner: boolean, username: string) => {
 
 export const getLogs = async () => {
   try {
-    const req = await instance.post("/owner/get/logs");
+    const req = await instance.get("/owner/get/logs");
 
     if (req.status === 200) {
       return { isSuccess: true, wasAuthorized: true, data: req.data };
@@ -173,7 +173,7 @@ export const resetUserPassword = async (
     return { isSuccess: false, wasAuthorized: false };
   }
   try {
-    const req = await instance.post("/owner/user/account/reset/password", {
+    const req = await instance.put("/owner/user/account/reset/password", {
       username,
       email,
     });
@@ -190,20 +190,19 @@ export const resetUserPassword = async (
   return { isSuccess: false, wasAuthorized: true };
 };
 
-
 export const promoteAdmin = async (
   isOwner: boolean,
   username: string,
   email: string
 ) => {
-  if(!isOwner){
+  if (!isOwner) {
     return { isSuccess: false, wasAuthorized: false };
   }
-  if(!email || !username){
+  if (!email || !username) {
     return { isSuccess: false, wasAuthorized: true };
   }
   try {
-    const req = await instance.post("/owner/promote/admin", {
+    const req = await instance.put("/owner/promote/admin", {
       username,
       email,
     });
@@ -218,21 +217,21 @@ export const promoteAdmin = async (
     return { isSuccess: false, wasAuthorized: true };
   }
   return { isSuccess: false, wasAuthorized: true };
-}
+};
 
 export const removeAdmin = async (
   isOwner: boolean,
   username: string,
   email: string
 ) => {
-  if(!isOwner){
+  if (!isOwner) {
     return { isSuccess: false, wasAuthorized: false };
   }
-  if(!email || !username){
+  if (!email || !username) {
     return { isSuccess: false, wasAuthorized: true };
   }
   try {
-    const req = await instance.post("/owner/remove/admin", {
+    const req = await instance.put("/owner/remove/admin", {
       username,
       email,
     });
@@ -247,5 +246,25 @@ export const removeAdmin = async (
     return { isSuccess: false, wasAuthorized: true };
   }
   return { isSuccess: false, wasAuthorized: true };
-}
+};
 
+export const getReadReports = async () => {
+  try {
+    const req = await instance.get("/owner/get/read/reports");
+
+    if (req.status === 200) {
+      return { isSuccess: true, data: req.data };
+    }
+  } catch {
+    return { isSuccess: false, data: {} };
+  }
+  return { isSuccess: false, data: {} };
+};
+
+export const socket_DeleteReport = async (isOwner: boolean, id: string) => {
+  if (!isOwner) {
+    return { isSuccess: false, wasAuthorized: false };
+  }
+  try {
+  } catch {}
+};

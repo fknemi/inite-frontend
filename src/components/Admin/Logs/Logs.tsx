@@ -23,7 +23,7 @@ const Logs = ({ timeFormat }: { timeFormat: boolean }) => {
     <div>
       <h1 className="bold">Logs</h1>
       {logs.length > 0 ? (
-        <PaginatedItems itemsPerPage={10} items={logs} Component={Log}  />
+        <PaginatedItems itemsPerPage={10} items={logs} Component={Log} timeFormat={timeFormat} />
       ) : null}
     </div>
   );

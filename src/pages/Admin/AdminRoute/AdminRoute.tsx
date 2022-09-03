@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { ADMIN } from "../../../@types/types";
 import { fetchAdmin, logout } from "../../../api/admin/admin";
 
-const MAX_ADMIN_LOGGED_IN_TIME = 216 ** 4 * 10 ** 5;
+const MAX_ADMIN_LOGGED_IN_TIME = 1440 * 60 * 1000; // 24 hours
 
 const AdminRoute = ({ component: Component, ...rest }: any) => {
   let [admin, setAdmin] = useRecoilState(adminAtom);

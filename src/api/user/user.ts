@@ -1,5 +1,5 @@
 import instance from "../axios";
-import { addInstagramUser } from "../instagram/instagram";
+
 import { AxiosError } from "axios";
 import axios from "axios";
 import { NotificationSettings } from "../../@types/types";
@@ -57,7 +57,7 @@ export const logout = async () => {
 
 export const verifyEmailToken = async (token: string) => {
   try {
-    const req = await instance.post("/user/account/email/verify/token", {
+    const req = await instance.put("/user/account/email/verify/token", {
       token: token,
     });
 
@@ -84,7 +84,7 @@ export const verifyEmailToken = async (token: string) => {
 
 export const verifyEmail = async () => {
   try {
-    const req = await instance.post("/user/account/email/verify", {});
+    const req = await instance.put("/user/account/email/verify", {});
 
     if (req.status === 200) {
       return true;
@@ -98,7 +98,7 @@ export const verifyEmail = async () => {
 
 export const fetchUser = async () => {
   try {
-    const req = await instance.post("/user/get");
+    const req = await instance.get("/user");
     if (req.status === 200) {
       localStorage.setItem("user", JSON.stringify(req.data));
       return { isSuccess: true, data: req.data };
@@ -128,7 +128,7 @@ export const followInstagramUser = async (instagramUser: {
 
 export const unfollowInstagramUser = async (username: string) => {
   try {
-    const req = await instance.post("/user/instagram/unfollow", {
+    const req = await instance.put("/user/instagram/unfollow", {
       username,
     });
 
@@ -143,7 +143,7 @@ export const unfollowInstagramUser = async (username: string) => {
 
 export const resetUserPassword = async (email: string) => {
   try {
-    const req = await instance.post("/account/forgot/password", {
+    const req = await instance.put("/account/forgot/password", {
       email,
     });
     if (req.status === 200) {
@@ -157,7 +157,7 @@ export const resetUserPassword = async (email: string) => {
 
 export const verifyPasswordToken = async (token: string) => {
   try {
-    const req = await instance.post("/account/verify/password/token", {
+    const req = await instance.put("/account/verify/password/token", {
       token,
     });
     if (req.status === 200) {
@@ -203,7 +203,7 @@ export const updateNotificationSettings = async (
   notificationSettings: NotificationSettings
 ) => {
   try {
-    const req = await instance.post("/user/update/settings/notifications", {
+    const req = await instance.put("/user/update/settings/notifications", {
       notifications: notificationSettings,
     });
     if (req.status === 200) {
@@ -258,7 +258,7 @@ export const updatePassword = async (
 };
 export const updateEmailSettings = async (notifyEmail: boolean) => {
   try {
-    const req = await instance.post("/update/email/settings", { notifyEmail });
+    const req = await instance.put("/update/email/settings", { notifyEmail });
     if (req.status === 200) {
       return true;
     }
@@ -274,7 +274,7 @@ export const reportInstagramUser = async (
   description: string
 ) => {
   try {
-    const req = await instance.post("/user/report", {
+    const req = await instance.put("/user/report", {
       accountReported,
       reason,
       description,
@@ -292,7 +292,9 @@ export const reportInstagramUser = async (
 
 export const updateReadReports = async (readReports: Set<string>) => {
   try {
-    const req = await instance.post("/admin/read/reports", {readReports: [...readReports]});
+    const req = await instance.put("/admin/read/reports", {
+      readReports: [...readReports],
+    });
     if (req.status === 200) {
       return true;
     }

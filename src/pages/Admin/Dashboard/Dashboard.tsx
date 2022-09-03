@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { adminAtom, timeFormatAtom } from '../../../statedrive/atoms';
+import { adminAtom} from "../../../statedrive/atoms";
 import { useNavigate } from "react-router-dom";
 import { ADMIN } from "../../../@types/types";
 import Users from "../../../components/Admin/Users/Users";
@@ -8,15 +8,16 @@ import InstagramUsers from "../../../components/Admin/InstagramUsers/InstagramUs
 import Reports from "../../../components/Admin/Reports/Reports";
 import Logs from "../../../components/Admin/Logs/Logs";
 import PaginatedItems from "../../../components/PaginatedItems/PaginatedItems";
+import ReadReports from "../../../components/Admin/ReadReports/ReadReports";
+
+
+
+// TODO Add Delete Log Route for Owner
 
 const AdminDashboard = () => {
   const [admin, setAdmin] = useRecoilState(adminAtom);
   const navigate = useNavigate();
-  const [timeFormat, setTimeFormat] = useRecoilState(timeFormatAtom);
-
-  // TODO Pass the timeFormat to ItemsComponent via Props
-  
-  
+  const [timeFormat, setTimeFormat] = useState(false);
 
   return (
     <div>
@@ -34,9 +35,9 @@ const AdminDashboard = () => {
       <div>
         <Users timeFormat={timeFormat} />
         {/* <InstagramUsers timeFormat={timeFormat} /> */}
-        {/* <Reports/> */}
-        {/* <Logs timeFormat={timeFormat}/> */}
-        
+        {/* <Reports  timeFormat={timeFormat} /> */}
+        {/* <ReadReports timeFormat={timeFormat} /> */}
+        {/* <Logs timeFormat={timeFormat} /> */}
       </div>
     </div>
   );

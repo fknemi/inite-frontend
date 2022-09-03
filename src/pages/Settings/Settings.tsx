@@ -1,5 +1,5 @@
 import React from "react";
-import Notifications from "../../components/Settings/Notifications";
+import NotificationSettings from "../../components/Settings/NotificationSettings";
 import UpdatePassword from "../../components/Settings/UpdatePassword";
 import Account from "../../components/Settings/Account";
 import EmailNotifications from "../../components/Settings/EmailNotifications";
@@ -11,7 +11,7 @@ const Settings = () => {
     <div>
       Settings
       <div className="flex self-start justify-start">
-        {/* <Help /> */}
+        <Help />
 
         {/* <Account /> */}
         {/* <EmailNotifications /> */}

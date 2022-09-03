@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { REPORT } from "../../../@types/types";
 import { useRecoilState } from "recoil";
 import { readReportsIDsAtom } from "../../../statedrive/atoms";
-
+let BUTTON_STYLE = "mt-5 disabled:bg-gray-400 w-40 h-7 rounded-md bg-green-400";
 const Report = ({ item }: { item: REPORT }) => {
   let {
     _id,
@@ -14,7 +14,8 @@ const Report = ({ item }: { item: REPORT }) => {
     readStatus,
     timestamp,
   } = item;
-  const [readReportsIDs, setReadReportsIDs] = useRecoilState(readReportsIDsAtom);
+  const [readReportsIDs, setReadReportsIDs] =
+    useRecoilState(readReportsIDsAtom);
 
   return (
     <div>
@@ -42,6 +43,7 @@ const Report = ({ item }: { item: REPORT }) => {
         <h1>Read Status: {readStatus ? "Read" : "Not Read"}</h1>
         <h1>Timestamp: {timestamp || "N/A"}</h1>
       </div>
+      <button className={BUTTON_STYLE}>❌</button>
     </div>
   );
 };

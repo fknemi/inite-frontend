@@ -19,18 +19,6 @@ export const fetchInstagramUser = async (username: string) => {
 
   return { isSuccess: false, data: {} };
 };
-export const addInstagramUser = async (instagramUser: any) => {
-  try {
-    const req = await instance.post("/instagram/user/add", {
-      ...instagramUser,
-    });
-    if (req.status === 200) {
-      return true;
-    }
-  } catch {
-    return false;
-  }
-};
 
 export const getInstagramUserMedia = async (username: string) => {
   try {

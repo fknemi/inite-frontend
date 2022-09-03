@@ -1,4 +1,5 @@
 import { atom, RecoilState } from "recoil";
+
 import {
   ADMIN,
   Atoms,
@@ -6,8 +7,9 @@ import {
   NotificationSettings,
   USER,
 } from "../@types/types";
+import { socket } from "../common/socket";
 
-const parseJSON = (item: string) => {
+export const parseJSON = (item: string) => {
   try {
     return JSON.parse(item);
   } catch {
@@ -104,24 +106,32 @@ export const adminAtom = atom<ADMIN>({
     loginTimestamp: parseInt(localStorage.getItem("loggedInAt") as string),
   },
 });
-export const instagramUsersAtom = atom({
+export const instagramUsersAtom = atom<INSTAGRAM_USER[] | []>({
   key: "instagramUsers",
   default: [],
 });
-export const usersAtom = atom({
+export const usersAtom = atom<USER | []>({
   key: "users",
   default: [],
 });
-export const showReportModalAtom = atom({
+export const showReportModalAtom = atom<boolean>({
   key: "reportUser",
   default: false,
 });
-export const readReportsAtom = atom<Set<string>>({
-  key: "readReports",
-  default: new Set(parseJSON("readReports")) || new Set([]), 
+export const readReportsIDsAtom = atom<Set<string>>({
+  key: "readReportsIDs",
+  default: new Set(parseJSON("readReportsIDs")) || new Set([]),
+});
+export const notificationsAtom = atom<any[]>({
+  key: "notifications",
+  default: parseJSON(localStorage.getItem("notifications") as string) || [],
+});
+export const showNotificationsAtom = atom<Set<string>>({
+  key: "showNotifications",
+  default: new Set([]),
 });
 
-export const timeFormatAtom = atom<boolean> ({
-  key: "timeFormat",
-  default: true,
+export const newNotificationsAlertAtom = atom({
+  key: "newNotificationsAlert",
+  default: localStorage.getItem("newNotificationsAlert") || false,
 });
