@@ -14,7 +14,6 @@ import {
 } from "../../statedrive/atoms";
 
 const ProtectedRoute = ({ component: Component, ...rest }: any) => {
-  // const socket: any = useRef(_socket);
   const [user, setUser] = useRecoilState(userAtom);
   const [{ token, refreshToken }, setTokens] = useRecoilState(tokensAtom);
   const setNotificationSettings = useSetRecoilState(notificationSettingsAtom);
@@ -80,13 +79,10 @@ const ProtectedRoute = ({ component: Component, ...rest }: any) => {
   }, []);
 
   useEffect(() => {
-    socket.on("connect", () => {
+    socket.on("connection", () => {
       console.log("connected");
     });
     socket.on("notifications", async (data: any) => {
-      console.log("====================================");
-      console.log(data);
-      console.log("====================================");
       const newNotifications: any = await updateNotifications(data);
       if (!newNotifications) {
         return;

@@ -1,6 +1,5 @@
-import React from "react";
 import { io } from "socket.io-client";
-import { parseJSON } from "../statedrive/atoms";
+import { parseJSON } from "./utils";
 
 export const socket = io("http://localhost:5000", {
   auth: {
@@ -27,6 +26,13 @@ export const updateNotifications = async (data: any) => {
     }
   }
 
-  // localStorage.setItem("notifications", JSON.stringify(newNotifications));
+  localStorage.setItem("notifications", JSON.stringify(newNotifications));
   return newNotifications;
+};
+
+export const deleteReport = async (id: string) => {
+  socket.emit("DELETE_REPORT", id);
+};
+export const deleteLog = async (id: string) => {
+  socket.emit("DELETE_LOG", id);
 };

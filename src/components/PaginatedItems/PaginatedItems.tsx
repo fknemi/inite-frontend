@@ -5,8 +5,6 @@ import { LOG } from "../../@types/types";
 import Log from "../Admin/Logs/Log";
 
 function Items({ currentItems, Component, timeFormat }: any) {
-
-
   return (
     <>
       {currentItems &&
@@ -17,17 +15,22 @@ function Items({ currentItems, Component, timeFormat }: any) {
   );
 }
 
-function PaginatedItems({ itemsPerPage, items, Component,timeFormat }: any) {
+function PaginatedItems({
+  itemsPerPage,
+  items,
+  Component,
+  timeFormat,
+  deleteItem,
+}: any) {
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
-  
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
     setCurrentItems(items.slice(itemOffset, endOffset) as any);
     setPageCount(Math.ceil(items.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage]);
+  }, [itemOffset, itemsPerPage, items]);
 
   const handlePageClick = (
     event: React.SyntheticEvent & { selected: number }
@@ -38,7 +41,11 @@ function PaginatedItems({ itemsPerPage, items, Component,timeFormat }: any) {
 
   return (
     <>
-      <Items currentItems={currentItems} Component={Component} timeFormat={timeFormat} />
+      <Items
+        currentItems={currentItems}
+        Component={Component}
+        timeFormat={timeFormat}
+      />
       <ReactPaginate
         breakLabel="..."
         nextLabel="next >"

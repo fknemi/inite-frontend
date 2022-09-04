@@ -1,7 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { REPORT } from "../../../@types/types";
-import { useRecoilState } from "recoil";
-import { readReportsIDsAtom } from "../../../statedrive/atoms";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import {
+  readReportsAtom,
+  readReportsIDsAtom,
+  reportsAtom,
+} from "../../../statedrive/atoms";
+import { deleteReport, socket } from "../../../common/socket";
 
 const Report = ({ item }: { item: REPORT }) => {
   let {
@@ -14,7 +19,27 @@ const Report = ({ item }: { item: REPORT }) => {
     readStatus,
     timestamp,
   } = item;
-  const [readReportsIDs, setReadReportsIDs] = useRecoilState(readReportsIDsAtom);
+  const [readReportsIDs, setReadReportsIDs] =
+    useRecoilState(readReportsIDsAtom);
+
+  const [reports, setReports] = useRecoilState(reportsAtom);
+  const [readReports, setReadReports] = useRecoilState(readReportsAtom);
+  const [deletedReport, setDeletedReport] = useState<REPORT | undefined>(
+    undefined
+  );
+
+  useEffect(() => {
+    socket.on("REPORT_DELETED", (status, id) => {
+      if (status === 200) {
+        setDeletedReport(undefined);
+      } else {
+        if (deletedReport && deletedReport.readStatus) {
+          return setReadReports([...readReports, deletedReport]);
+        }
+        return setReports([...reports, deletedReport as REPORT]);
+      }
+    });
+  }, [deletedReport]);
 
   return (
     <div>
@@ -41,6 +66,34 @@ const Report = ({ item }: { item: REPORT }) => {
         <h1>Account Reported: {accountReported.username || "N/A"}</h1>
         <h1>Read Status: {readStatus ? "Read" : "Not Read"}</h1>
         <h1>Timestamp: {timestamp || "N/A"}</h1>
+        <button
+          onClick={() => {
+            deleteReport(_id);
+            if (!readStatus) {
+              return setReports(
+                reports.filter((report) => {
+                  if (report._id === _id) {
+                    setDeletedReport(report);
+                  } else {
+                    return report;
+                  }
+                })
+              );
+            }
+            return setReadReports(
+              readReports.filter((report) => {
+                if (report._id === _id) {
+                  setDeletedReport(report);
+                } else {
+                  return report;
+                }
+              })
+            );
+          }}
+          className="border-4"
+        >
+          ❌
+        </button>
       </div>
     </div>
   );

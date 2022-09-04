@@ -172,15 +172,6 @@ export interface INSTAGRAM_USER {
   followedBy: { user: USER; timestamp: string }[];
 }
 
-// name: admin.userInfo.name,
-//     username: admin.userInfo.username,
-//     avatar: admin.userInfo.avatar,
-//     isBanned: admin.userInfo.isBanned,
-//     isAdmin: admin.isAdmin,
-//     isOwner: isOwner,
-//     emailVerified: admin.userInfo.emailVerified,
-//     permissions: permissions,
-
 export interface ADMIN {
   isOwner: boolean | undefined;
   loginTimestamp: number | undefined;
@@ -282,4 +273,4 @@ export interface NOTIFICATION_CHANGED_USER {
     | undefined;
   timestamp: number;
   id: string;
-};
+}

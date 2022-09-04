@@ -4,18 +4,12 @@ import {
   ADMIN,
   Atoms,
   INSTAGRAM_USER,
+  LOG,
   NotificationSettings,
+  REPORT,
   USER,
 } from "../@types/types";
-import { socket } from "../common/socket";
-
-export const parseJSON = (item: string) => {
-  try {
-    return JSON.parse(item);
-  } catch {
-    return null;
-  }
-};
+import { parseJSON } from "../common/utils";
 
 let user = parseJSON(localStorage.getItem("user") as string) || {};
 let admin = parseJSON(localStorage.getItem("admin") as string) || {};
@@ -40,8 +34,8 @@ export const loggedInStatusAtom = atom({
 export const loginAtom = atom({
   key: "login",
   default: {
-    email: "owner@gmail.com",
-    password: "1234",
+    email: "",
+    password: "",
   },
 });
 export const tokensAtom = atom({
@@ -134,4 +128,17 @@ export const showNotificationsAtom = atom<Set<string>>({
 export const newNotificationsAlertAtom = atom({
   key: "newNotificationsAlert",
   default: localStorage.getItem("newNotificationsAlert") || false,
+});
+export const reportsAtom = atom<REPORT[] | []>({
+  key: "reports",
+  default: parseJSON(sessionStorage.getItem("reports") as string) || [],
+});
+export const readReportsAtom = atom<REPORT[] | []>({
+  key: "readReports",
+  default: parseJSON(sessionStorage.getItem("readReports") as string) || [],
+});
+
+export const logsAtom = atom<LOG[] | []>({
+  key: "logs",
+  default: parseJSON(sessionStorage.getItem("logs") as string) || [],
 });

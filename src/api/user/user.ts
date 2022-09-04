@@ -1,7 +1,4 @@
 import instance from "../axios";
-
-import { AxiosError } from "axios";
-import axios from "axios";
 import { NotificationSettings } from "../../@types/types";
 
 export const register = async (

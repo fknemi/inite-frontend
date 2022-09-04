@@ -23,7 +23,10 @@ import {
 import ProtectedRoute from "./pages/ProtectedRoute/ProtectedRoute";
 import AdminRoute from "./pages/Admin/AdminRoute/AdminRoute";
 
-// TODO Notification Component Drag Remove
+// TODO Create useModal Hook
+// TODO Add More Types
+// TODO Remove Tailwind CSS
+// TODO Add Bulk Delete Functionality for Logs and Reports
 
 const App = () => {
   return (

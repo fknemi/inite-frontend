@@ -30,15 +30,6 @@ export const logout = () => {
   localStorage.removeItem("loggedInAt");
 };
 
-// Get Instagram Users
-// Get  Reports
-
-// ADMIN
-// Ban User
-// Ban Instagram User
-// Unban User
-// Unban Instagram User
-
 export const getUsers = async () => {
   try {
     const req = await instance.get("/admin/get/users");
@@ -139,4 +130,3 @@ export const unbanInstagramUser = async (username: string) => {
   }
   return { isSuccess: false, wasAuthorized: true };
 };
-

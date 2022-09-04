@@ -32,3 +32,11 @@ export const getTimestampDateTime = (
     monthNames[date.getMonth()]
   } ${date.getFullYear()}`;
 };
+
+export const parseJSON = (item: string) => {
+  try {
+    return JSON.parse(item);
+  } catch {
+    return null;
+  }
+};

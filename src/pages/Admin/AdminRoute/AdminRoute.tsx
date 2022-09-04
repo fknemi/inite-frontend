@@ -4,6 +4,7 @@ import { adminAtom } from "../../../statedrive/atoms";
 import { useNavigate } from "react-router-dom";
 import { ADMIN } from "../../../@types/types";
 import { fetchAdmin, logout } from "../../../api/admin/admin";
+import { socket } from "../../../common/socket";
 
 const MAX_ADMIN_LOGGED_IN_TIME = 1440 * 60 * 1000; // 24 hours
 
@@ -38,6 +39,7 @@ const AdminRoute = ({ component: Component, ...rest }: any) => {
       }
     })();
   }, []);
+
 
   return (
     <>{Object.keys(admin).length !== 0 ? <Component {...rest} /> : <>404</>}</>
