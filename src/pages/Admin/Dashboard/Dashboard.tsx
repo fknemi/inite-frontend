@@ -3,9 +3,9 @@ import { useRecoilState } from "recoil";
 import { adminAtom } from "../../../statedrive/atoms";
 import { useNavigate } from "react-router-dom";
 import Logs from "../../../components/Admin/Logs/Logs";
-
-
-// TODO Add Delete Log Route for Owner
+import Reports from "../../../components/Admin/Reports/Reports";
+import InstagramUsers from "../../../components/Admin/InstagramUsers/InstagramUsers";
+import Users from "../../../components/Admin/Users/Users";
 
 const AdminDashboard = () => {
   const [admin, setAdmin] = useRecoilState(adminAtom);
@@ -29,8 +29,8 @@ const AdminDashboard = () => {
         {/* <Users timeFormat={timeFormat} /> */}
         {/* <InstagramUsers timeFormat={timeFormat} /> */}
         {/* <Reports isOwner={admin.isOwner as boolean} timeFormat={timeFormat} /> */}
-        {/* <ReadReports timeFormat={timeFormat} /> */}
-        <Logs timeFormat={timeFormat} />
+
+        <Logs isOwner={admin.isOwner as boolean} timeFormat={timeFormat} />
       </div>
     </div>
   );

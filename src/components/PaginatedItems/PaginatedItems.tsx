@@ -1,15 +1,22 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import ReactPaginate from "react-paginate";
+import { useRecoilState } from "recoil";
 import { LOG } from "../../@types/types";
+import { deleteMultipleReportIdsAtom } from "../../statedrive/atoms";
 import Log from "../Admin/Logs/Log";
 
-function Items({ currentItems, Component, timeFormat }: any) {
+function Items({ currentItems, Component, timeFormat, selectedItems }: any) {
   return (
     <>
       {currentItems &&
         currentItems.map((item: any) => (
-          <Component key={item._id} item={item} timeFormat={timeFormat} />
+          <Component
+            key={item._id}
+            item={item}
+            timeFormat={timeFormat}
+            selectedItems={selectedItems}
+          />
         ))}
     </>
   );
@@ -20,7 +27,7 @@ function PaginatedItems({
   items,
   Component,
   timeFormat,
-  deleteItem,
+  selectedItems,
 }: any) {
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
@@ -30,7 +37,7 @@ function PaginatedItems({
     const endOffset = itemOffset + itemsPerPage;
     setCurrentItems(items.slice(itemOffset, endOffset) as any);
     setPageCount(Math.ceil(items.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage, items]);
+  }, [itemOffset, itemsPerPage, items, selectedItems]);
 
   const handlePageClick = (
     event: React.SyntheticEvent & { selected: number }
@@ -45,6 +52,7 @@ function PaginatedItems({
         currentItems={currentItems}
         Component={Component}
         timeFormat={timeFormat}
+        selectedItems={selectedItems}
       />
       <ReactPaginate
         breakLabel="..."

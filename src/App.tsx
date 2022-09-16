@@ -1,6 +1,3 @@
-import "./styles/tailwind.css";
-import "./styles/custom.css";
-import "./styles/app.css";
 import React, { useEffect } from "react";
 import { Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -22,70 +19,68 @@ import {
 } from "./pages/exports";
 import ProtectedRoute from "./pages/ProtectedRoute/ProtectedRoute";
 import AdminRoute from "./pages/Admin/AdminRoute/AdminRoute";
-
-// TODO Create useModal Hook
-// TODO Add More Types
-// TODO Remove Tailwind CSS
-// TODO Add Bulk Delete Functionality for Logs and Reports
+import { ChakraProvider } from "@chakra-ui/react";
 
 const App = () => {
   return (
     <Router>
       <RecoilRoot>
-        <Suspense fallback={"Loading"}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/account/register" element={<Register />} />
-            <Route path="/account/login" element={<Login />} />
-            <Route
-              path="/admin/login"
-              element={<ProtectedRoute component={AdminLogin} />}
-            />
-            <Route
-              path="/admin/dashboard"
-              element={
-                <ProtectedRoute
-                  component={() => <AdminRoute component={AdminDashboard} />}
-                />
-              }
-            />
-            <Route
-              path="/dashboard"
-              element={<ProtectedRoute component={Dashboard} />}
-            />
-            <Route
-              path="/user/account/settings"
-              element={<ProtectedRoute component={Settings} />}
-            />
+        <ChakraProvider>
+          <Suspense fallback={"Loading"}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/account/register" element={<Register />} />
+              <Route path="/account/login" element={<Login />} />
+              <Route
+                path="/admin/login"
+                element={<ProtectedRoute component={AdminLogin} />}
+              />
+              <Route
+                path="/admin/dashboard"
+                element={
+                  <ProtectedRoute
+                    component={() => <AdminRoute component={AdminDashboard} />}
+                  />
+                }
+              />
+              <Route
+                path="/dashboard"
+                element={<ProtectedRoute component={Dashboard} />}
+              />
+              <Route
+                path="/user/account/settings"
+                element={<ProtectedRoute component={Settings} />}
+              />
 
-            <Route
-              path="/instagram/profile/:username"
-              element={<ProtectedRoute component={InstagramUserProfile} />}
-            />
-            <Route
-              path="/instagram/search"
-              element={<ProtectedRoute component={SearchInstagramUsers} />}
-            />
-            <Route
-              path="/notifications"
-              element={<ProtectedRoute component={Notifications} />}
-            />
+              <Route
+                path="/instagram/profile/:username"
+                element={<ProtectedRoute component={InstagramUserProfile} />}
+              />
+              <Route
+                path="/instagram/search"
+                element={<ProtectedRoute component={SearchInstagramUsers} />}
+              />
+              <Route
+                path="/notifications"
+                element={<ProtectedRoute component={Notifications} />}
+              />
 
-            <Route path="/account/verify/email/" element={<VerifyEmail />} />
-            <Route
-              path="/account/forgot/password"
-              element={<ForgotPassword />}
-            />
-            <Route
-              path="/account/update/password/:token"
-              element={<ResetPassword />}
-            />
-            <Route
-              path="/account/verify/email/:token"
-              element={<VerifyEmail />}
-            />
-          </Routes>
-        </Suspense>
+              <Route path="/account/verify/email/" element={<VerifyEmail />} />
+              <Route
+                path="/account/forgot/password"
+                element={<ForgotPassword />}
+              />
+              <Route
+                path="/account/update/password/:token"
+                element={<ResetPassword />}
+              />
+              <Route
+                path="/account/verify/email/:token"
+                element={<VerifyEmail />}
+              />
+            </Routes>
+          </Suspense>
+        </ChakraProvider>
       </RecoilRoot>
     </Router>
   );

@@ -261,10 +261,51 @@ export const getReadReports = async () => {
   return { isSuccess: false, data: {} };
 };
 
-export const socket_DeleteReport = async (isOwner: boolean, id: string) => {
+export const deleteMultipleReports = async (
+  isOwner: boolean,
+  ids: string[]
+) => {
   if (!isOwner) {
     return { isSuccess: false, wasAuthorized: false };
   }
+  if (!ids.length) {
+    return { isSuccess: false, wasAuthorized: true };
+  }
   try {
-  } catch {}
+    const req = await instance.put("/owner/delete/reports", {
+      deleteReports: ids,
+    });
+    if (req.status === 200) {
+      return { isSuccess: true, wasAuthorized: true };
+    }
+  } catch {
+    return { isSuccess: false, wasAuthorized: false };
+  }
+  return { isSuccess: false, wasAuthorized: false };
 };
+
+
+export const deleteMultipleLogs = async (
+  isOwner: boolean,
+  ids: string[]
+) => {
+  if (!isOwner) {
+    return { isSuccess: false, wasAuthorized: false };
+  }
+  if (!ids.length) {
+    return { isSuccess: false, wasAuthorized: true };
+  }
+  try {
+    const req = await instance.put("/owner/delete/logs", {
+      deleteLogs: ids,
+    });
+    if (req.status === 200) {
+      return { isSuccess: true, wasAuthorized: true };
+    }
+  } catch {
+    return { isSuccess: false, wasAuthorized: false };
+  }
+  return { isSuccess: false, wasAuthorized: false };
+};
+
+

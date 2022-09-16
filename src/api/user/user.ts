@@ -300,3 +300,16 @@ export const updateReadReports = async (readReports: Set<string>) => {
   }
   return true;
 };
+export const linkInstagramAccount = async (code: string) => {
+  try {
+    const req = await instance.post("/user/link/instagram", {
+      code,
+    });
+    if (req.status === 200) {
+      return true;
+    }
+  } catch {
+    return false;
+  }
+  return false;
+};

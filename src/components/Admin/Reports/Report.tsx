@@ -2,13 +2,20 @@ import React, { useEffect, useState } from "react";
 import { REPORT } from "../../../@types/types";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import {
+  deleteMultipleReportIdsAtom,
   readReportsAtom,
   readReportsIDsAtom,
   reportsAtom,
 } from "../../../statedrive/atoms";
 import { deleteReport, socket } from "../../../common/socket";
 
-const Report = ({ item }: { item: REPORT }) => {
+const Report = ({
+  item,
+  selectedItems,
+}: {
+  item: REPORT;
+  selectedItems: Set<string>;
+}) => {
   let {
     _id,
     name,
@@ -21,11 +28,14 @@ const Report = ({ item }: { item: REPORT }) => {
   } = item;
   const [readReportsIDs, setReadReportsIDs] =
     useRecoilState(readReportsIDsAtom);
-
   const [reports, setReports] = useRecoilState(reportsAtom);
   const [readReports, setReadReports] = useRecoilState(readReportsAtom);
   const [deletedReport, setDeletedReport] = useState<REPORT | undefined>(
     undefined
+  );
+  const [isChecked, setIsChecked] = useState<boolean>(false);
+  const setDeleteMultipleReportIds: any = useSetRecoilState(
+    deleteMultipleReportIdsAtom
   );
 
   useEffect(() => {
@@ -41,8 +51,33 @@ const Report = ({ item }: { item: REPORT }) => {
     });
   }, [deletedReport]);
 
+  useEffect(() => {
+    if (selectedItems.has(_id)) {
+      return setIsChecked(true);
+    }
+    setIsChecked(false);
+  }, [selectedItems]);
+
   return (
     <div>
+      <span className="flex flex-row border-4 gap-2">
+        <h1>Select</h1>
+        <input
+          type="checkbox"
+          checked={isChecked}
+          onChange={() => {
+            if (selectedItems.has(_id)) {
+              selectedItems.delete(_id);
+              setIsChecked(false);
+            } else {
+              selectedItems.add(_id);
+              setIsChecked(true);
+            }
+            setDeleteMultipleReportIds(new Set(selectedItems));
+          }}
+        />
+      </span>
+
       {!readStatus ? (
         <input
           type="checkbox"
@@ -66,6 +101,7 @@ const Report = ({ item }: { item: REPORT }) => {
         <h1>Account Reported: {accountReported.username || "N/A"}</h1>
         <h1>Read Status: {readStatus ? "Read" : "Not Read"}</h1>
         <h1>Timestamp: {timestamp || "N/A"}</h1>
+
         <button
           onClick={() => {
             deleteReport(_id);

@@ -142,3 +142,11 @@ export const logsAtom = atom<LOG[] | []>({
   key: "logs",
   default: parseJSON(sessionStorage.getItem("logs") as string) || [],
 });
+export const deleteMultipleReportIdsAtom = atom<Set<string>>({
+  key: "deleteMultipleReportIds",
+  default: new Set([]),
+});
+export const deleteMultipleLogsIdsAtom = atom<Set<string>>({
+  key: "deleteMultipleLogsIds",
+  default: new Set([]),
+});

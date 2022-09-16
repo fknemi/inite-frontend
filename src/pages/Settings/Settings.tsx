@@ -11,13 +11,13 @@ const Settings = () => {
     <div>
       Settings
       <div className="flex self-start justify-start">
-        <Help />
+        {/* <Help /> */}
 
         {/* <Account /> */}
         {/* <EmailNotifications /> */}
         {/* <Notifications /> */}
         {/* <UpdatePassword /> */}
-        {/* <LinkAccounts /> */}
+        <LinkAccounts />
       </div>
     </div>
   );
