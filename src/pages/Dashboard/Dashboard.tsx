@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { fetchUser } from "../../api/user/user";
-import Layout from "../../components/Layout";
+import Layout from "../../components/Layout/Layout";
 import { followingAtom, tokensAtom, userAtom } from "../../statedrive/atoms";
 
 const Dashboard = () => {

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { CustomModal, useModal } from "../../hooks/useModal";
-import { InstagramLink } from "../LoginButtons";
+import { InstagramLink } from "../SocialButtons/LoginButtons";
 
 
 

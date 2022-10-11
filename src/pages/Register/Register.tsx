@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Layout from "../../components/Layout";
+import Layout from "../../components/Layout/Layout";
 import { registerAtom } from "../../statedrive/atoms";
 import { RecoilState, SetRecoilState, useRecoilState } from "recoil";
 import { register } from "../../api/user/user";

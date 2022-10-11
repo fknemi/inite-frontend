@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Layout from "../../components/Layout";
+import Layout from "../../components/Layout/Layout";
 import { fetchInstagramUser } from "../../api/instagram/instagram";
 import { useRecoilState } from "recoil";
 import { instagramUserAtom } from "../../statedrive/atoms";

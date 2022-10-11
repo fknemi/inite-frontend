@@ -19,13 +19,33 @@ import {
 } from "./pages/exports";
 import ProtectedRoute from "./pages/ProtectedRoute/ProtectedRoute";
 import AdminRoute from "./pages/Admin/AdminRoute/AdminRoute";
-import { ChakraProvider } from "@chakra-ui/react";
+import { createGlobalStyle } from "styled-components";
+import { useLocation } from "react-router-dom";
 
 const App = () => {
+  
+  const GlobalStyles = createGlobalStyle`
+  html,body{
+    font-size: 10px;
+    font-family: "Inter", 'sans-serif';
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;   
+    overflow-y: hidden;   
+  }
+  .absolute-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  `;
+  
   return (
-    <Router>
-      <RecoilRoot>
-        <ChakraProvider>
+    <>
+      <GlobalStyles />
+      <Router>
+        <RecoilRoot>
           <Suspense fallback={"Loading"}>
             <Routes>
               <Route path="/" element={<Home />} />
@@ -80,9 +100,9 @@ const App = () => {
               />
             </Routes>
           </Suspense>
-        </ChakraProvider>
-      </RecoilRoot>
-    </Router>
+        </RecoilRoot>
+      </Router>
+    </>
   );
 };
 

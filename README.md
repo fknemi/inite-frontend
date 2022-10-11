@@ -7,7 +7,7 @@ which the users are following and send them personalized alerts and emails about
 - Recoil
 - Axios
 - Socket.io
-- Emotion
+- Styled-Components
 
 
 ## Install
