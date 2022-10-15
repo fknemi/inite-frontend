@@ -18,7 +18,7 @@ const HeroImage = () => {
           height="68"
           rx="8"
           fill="black"
-          shape-rendering="crispEdges"
+          shapeRendering="crispEdges"
         />
         <circle cx="58" cy="173.5" r="20" fill="url(#pattern0)" />
         <path
@@ -38,7 +38,7 @@ const HeroImage = () => {
           height="68"
           rx="8"
           fill="black"
-          shape-rendering="crispEdges"
+          shapeRendering="crispEdges"
         />
         <circle cx="378" cy="55.5" r="20" fill="url(#pattern1)" />
         <path
@@ -58,7 +58,7 @@ const HeroImage = () => {
           height="68"
           rx="8"
           fill="black"
-          shape-rendering="crispEdges"
+          shapeRendering="crispEdges"
         />
         <circle cx="113" cy="389.5" r="20" fill="url(#pattern2)" />
         <path
@@ -78,7 +78,7 @@ const HeroImage = () => {
           height="68"
           rx="8"
           fill="black"
-          shape-rendering="crispEdges"
+          shapeRendering="crispEdges"
         />
         <circle cx="351" cy="507.5" r="20" fill="url(#pattern3)" />
         <path
@@ -98,7 +98,7 @@ const HeroImage = () => {
           height="68"
           rx="8"
           fill="black"
-          shape-rendering="crispEdges"
+          shapeRendering="crispEdges"
         />
         <circle cx="371" cy="291.5" r="20" fill="url(#pattern4)" />
         <path
@@ -203,9 +203,9 @@ const HeroImage = () => {
           width="368"
           height="116"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -264,9 +264,9 @@ const HeroImage = () => {
           width="368"
           height="116"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -325,9 +325,9 @@ const HeroImage = () => {
           width="368"
           height="116"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -389,9 +389,9 @@ const HeroImage = () => {
           width="368"
           height="116"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -450,9 +450,9 @@ const HeroImage = () => {
           width="368"
           height="116"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"

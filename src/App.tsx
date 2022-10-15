@@ -16,6 +16,7 @@ import {
   AdminLogin,
   AdminDashboard,
   Notifications,
+  About,
 } from "./pages/exports";
 import ProtectedRoute from "./pages/ProtectedRoute/ProtectedRoute";
 import AdminRoute from "./pages/Admin/AdminRoute/AdminRoute";
@@ -30,8 +31,6 @@ const App = () => {
     font-family: "Inter", 'sans-serif';
     margin: 0;
     padding: 0;
-    overflow-x: hidden;   
-    overflow-y: hidden;   
   }
   .absolute-center {
     position: absolute;
@@ -49,6 +48,7 @@ const App = () => {
           <Suspense fallback={"Loading"}>
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
               <Route path="/account/register" element={<Register />} />
               <Route path="/account/login" element={<Login />} />
               <Route

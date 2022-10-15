@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "../../components/Layout/Layout";
 import Cube from "../../components/Assets/Cube/Cube";
-import styled, { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
 import HeroImage from "../../components/Assets/HeroImage/HeroImage";
 
 const Home = () => {

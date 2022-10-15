@@ -46,7 +46,7 @@ export const tokensAtom = atom({
   },
 });
 
-export const userAtom = atom({
+export const userAtom = atom<USER>({
   key: "user",
   default: user,
 });
