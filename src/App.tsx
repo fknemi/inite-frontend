@@ -24,22 +24,18 @@ import { createGlobalStyle } from "styled-components";
 import { useLocation } from "react-router-dom";
 
 const App = () => {
-  
   const GlobalStyles = createGlobalStyle`
   html,body{
     font-size: 10px;
     font-family: "Inter", 'sans-serif';
     margin: 0;
     padding: 0;
-  }
-  .absolute-center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
   }
   `;
-  
+
   return (
     <>
       <GlobalStyles />

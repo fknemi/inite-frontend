@@ -3,7 +3,6 @@ import { Route, useNavigate, useLocation } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { fetchUser, logout } from "../../api/user/user";
 import { updateNotifications, socket } from "../../common/socket";
-
 import {
   userAtom,
   tokensAtom,
@@ -12,6 +11,10 @@ import {
   notificationsAtom,
   newNotificationsAlertAtom,
 } from "../../statedrive/atoms";
+
+
+
+
 
 const ProtectedRoute = ({ component: Component, ...rest }: any) => {
   const [user, setUser] = useRecoilState(userAtom);
@@ -66,7 +69,8 @@ const ProtectedRoute = ({ component: Component, ...rest }: any) => {
         setNotificationSettings(data.notifications);
         setNewNotificationsAlert(true);
 
-        if (!Object.keys(user).length && !data.emailVerified) {
+        if (Object.keys(user).length && data.emailVerified) {
+          //!data.emailVerified
           return navigate("/account/verify/email");
         }
       })();
@@ -92,17 +96,6 @@ const ProtectedRoute = ({ component: Component, ...rest }: any) => {
       localStorage.setItem("newNotificationsAlert", "true");
     });
   }, []);
-
-  // useEffect(() => {
-  // const interval = setInterval(() => {
-  //   {
-  //     updateUser();
-  //   }
-  // }, 60000);
-  // return () => {
-  //   clearInterval(interval);
-  // };
-  // }, []);
 
   return <>{token && refreshToken ? <Component {...rest} /> : <>404 page</>}</>;
 };

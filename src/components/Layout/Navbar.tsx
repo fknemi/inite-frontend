@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
 import { userAtom } from "../../statedrive/atoms";
+import { logout } from "../../api/user/user";
 
 const Nav: any = styled.nav`
   display: flex;
@@ -16,6 +17,7 @@ const Nav: any = styled.nav`
     font-size: 2.8rem;
     font-weight: 500;
   }
+
   ${(props: any) => props.dynamicStyles}
 `;
 
@@ -45,7 +47,7 @@ const NavButtonsContainer = styled.div`
   line-height: 24px;
   letter-spacing: 0.4px;
 
-  a:not(.notifications) {
+  a:not(.profile a) {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -61,42 +63,97 @@ const NavButtonsContainer = styled.div`
       top: -1px;
     }
   }
-  a:first-child:not(.notifications) {
+  a:first-child:not(.profile a) {
     background-color: #1976d2;
     color: #fff;
     border: 1.2px solid #1976d2;
   }
-  a:last-child {
+  a:last-child:not(.profile a) {
     background: none;
     border: 1.2px solid #fff;
   }
 
-  a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 3rem;
-    height: 3rem;
-    svg {
-      position: relative;
-      top: 1px;
-    }
-  }
-  span {
+  // .profile a {
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  //   width: 3rem;
+  //   height: 3rem;
+  //   svg {
+  //     position: relative;
+  //     top: 1px;
+  //   }
+  // }
+
+  .profile {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 0.5rem;
-    img {
+    gap: 1rem;
+    a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       width: 3rem;
       height: 3rem;
+
+      svg {
+        position: relative;
+        top: 0.5px;
+      }
     }
-    svg {
-      width: 2rem;
-      height: 2rem;
-      position: relative;
-      top: 1px;
+
+    span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      img {
+        width: 3rem;
+        height: 3rem;
+      }
+      svg {
+        width: 2rem;
+        height: 2rem;
+        position: relative;
+        top: 1px;
+      }
+    }
+  }
+
+  .profile div {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    position: absolute;
+    right: 0.6rem;
+    top: 5rem;
+    width: 18rem;
+    height: 20rem;
+    background: #ffffff;
+    border: 1px solid #efefef;
+    box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.25);
+    padding-left: 1rem;
+
+    span {
+      width: 100%;
+      height: 1px;
+      background: #ececec;
+      margin: 1rem 0;
+    }
+    a {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      white-space: nowrap;
+      display: flex;
+      color: #858585;
+      text-decoration: none;
+      font-size: 1.4rem;
+      letter-spacing: 0.4px;
     }
   }
 `;
@@ -104,13 +161,9 @@ const NavButtonsContainer = styled.div`
 const Navbar = () => {
   const location = useLocation();
   const [user] = useRecoilState(userAtom);
-  const [updateNavbar, setUpdateNavbar] = useState(true);
-  useEffect(() => {
-    let reg = /(\\dashboard)|(\\settings)/
-    console.log(reg.test(location.pathname));
-    setUpdateNavbar(reg.test(location.pathname));
-  },[location.pathname])
-  
+  const [showMenu, setShowMenu] = useState(false);
+  let reg =
+    /\/dashboard|\/notifications|\/settings|\/faq|\/account\/verify\/email|\/instagram\/search|\/instagram\/profile*/;
 
   return (
     <Nav
@@ -128,7 +181,7 @@ const Navbar = () => {
         <NavLink to="/contactus">Contact Us</NavLink>
         <NavLink to="/faq">FAQ</NavLink>
 
-        {updateNavbar ? null : (
+        {!reg.test(location.pathname) ? null : (
           <>
             <NavLink to="/instagram/search">Search</NavLink>
             <NavLink to="/dashboard">Dashboard</NavLink>
@@ -136,14 +189,14 @@ const Navbar = () => {
         )}
       </NavLinksContainer>
       <NavButtonsContainer>
-        {updateNavbar ? (
+        {!reg.test(location.pathname) ? (
           <>
             <NavLink to="/account/register">Register</NavLink>
             <NavLink to="/account/login">Login</NavLink>
           </>
         ) : (
-          <>
-            <NavLink className="notifications" to="/notifications">
+          <div className="profile">
+            <NavLink to="/notifications">
               <svg
                 width="100%"
                 height="100%"
@@ -157,7 +210,11 @@ const Navbar = () => {
                 />
               </svg>
             </NavLink>
-            <span>
+            <span
+              onClick={() => {
+                setShowMenu(!showMenu);
+              }}
+            >
               <img src={user.avatar} alt="" />
               <svg
                 width="100%"
@@ -172,7 +229,27 @@ const Navbar = () => {
                 />
               </svg>
             </span>
-          </>
+
+            {showMenu ? (
+              <div>
+                <Link to="/user/account/settings#profile">Profile</Link>
+                <Link to="/dashboard">Dashboard</Link>
+                <Link to="/notifications">Inbox</Link>
+                <Link to="/account/settings">Settings</Link>
+                <span></span>
+                <Link to="/faq">Need Help?</Link>
+                <Link
+                  to="/account/login"
+                  state={{ loggedOut: true }}
+                  onClick={() => {
+                    return logout();
+                  }}
+                >
+                  Logout
+                </Link>
+              </div>
+            ) : null}
+          </div>
         )}
       </NavButtonsContainer>
     </Nav>
