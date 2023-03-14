@@ -98,7 +98,6 @@ const MediaContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  
 
   div {
     display: flex;
@@ -107,7 +106,6 @@ const MediaContainer = styled.div`
     align-items: stretch;
     justify-content: space-between;
     gap: 5rem;
-
   }
 `;
 
@@ -132,12 +130,7 @@ const InstagramUserProfile = () => {
       } else {
         setMedia(
           media.length === 0
-            ? [
-                { type: "image", url: instagramUser.avatar },
-                { type: "image", url: instagramUser.avatar },
-                { type: "image", url: instagramUser.avatar },
-                { type: "image", url: instagramUser.avatar },
-              ]
+            ? [{ type: "image", url: instagramUser.avatar }]
             : media
         );
       }

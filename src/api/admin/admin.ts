@@ -43,7 +43,7 @@ export const getUsers = async () => {
 };
 export const getInstagramUsers = async () => {
   try {
-    const req = await instance.post("/admin/instagram/get/users");
+    const req = await instance.get("/admin/instagram/get/users");
     if (req.status === 200) {
       return { isSuccess: true, data: req.data };
     }

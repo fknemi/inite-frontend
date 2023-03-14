@@ -32,7 +32,16 @@ const App = () => {
     padding: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden;
+    overflow-x: hidden;
+  }
+  *, *::before, *::after{
+    border-color: transparent;
+    outline-color: transparent;
+  }
+  a, button{
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
   }
   `;
 

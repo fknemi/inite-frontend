@@ -109,6 +109,7 @@ const SettingsContainer = styled.div`
       }
     }
   }
+  
 `;
 
 const Section = styled.section``;

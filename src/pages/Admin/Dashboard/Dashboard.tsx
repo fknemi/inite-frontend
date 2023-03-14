@@ -26,9 +26,9 @@ const AdminDashboard = () => {
       </div>
 
       <div>
-        {/* <Users timeFormat={timeFormat} /> */}
-        {/* <InstagramUsers timeFormat={timeFormat} /> */}
-        {/* <Reports isOwner={admin.isOwner as boolean} timeFormat={timeFormat} /> */}
+        <Users timeFormat={timeFormat} />
+        <InstagramUsers timeFormat={timeFormat} />
+        <Reports isOwner={admin.isOwner as boolean} timeFormat={timeFormat} />
 
         <Logs isOwner={admin.isOwner as boolean} timeFormat={timeFormat} />
       </div>

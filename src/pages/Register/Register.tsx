@@ -18,13 +18,11 @@ const FormContainer = styled.div`
     font-weight: 500;
     font-size: 4rem;
     margin-bottom: 8rem;
+    color: #ffff;
   }
 `;
 
 const Form = styled.div`
-  --primary: #306ee6;
-  --secondary: #9f9f9f;
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -73,14 +71,13 @@ const Form = styled.div`
     height: 42px;
     padding: 0 0 0 1rem;
     background: #ffffff;
-    border: 2px solid #306ee6;
     box-shadow: 0px 0px 20px 1px rgba(48, 110, 230, 0.25);
     border-radius: 5px;
     font-size: 1.6rem;
+    border-color: transparent;
     &::placeholder {
       color: #5c6877;
     }
-    outline: none;
   }
 `;
 
@@ -107,15 +104,21 @@ const GenderInputContainer = styled.div`
         cursor: pointer;
         transition: background 0.2s ease;
         gap: 1rem;
+        color: #fff;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
 
         -webkit-tap-highlight-color: transparent;
 
         &:hover,
         &:focus-within {
-          background: rgba(var(--secondary), 0.1);
+          /* background: rgba(255, 255, 255, 0.1); */
         }
         span {
           font-size: 1.4rem;
+          margin-top: 0.3rem;
         }
       }
 
@@ -126,8 +129,8 @@ const GenderInputContainer = styled.div`
         border-radius: 10px;
         background: none;
         border: 0;
-        box-shadow: inset 0 0 0 1px var(--secondary);
-        box-shadow: inset 0 0 0 1.5px var(--secondary);
+        box-shadow: inset 0 0 0 1px #ffff;
+        box-shadow: inset 0 0 0 1.5px #ffff;
         appearance: none;
         transition: box-shadow 150ms cubic-bezier(0.95, 0.15, 0.5, 1.25);
         pointer-events: none;
@@ -137,7 +140,7 @@ const GenderInputContainer = styled.div`
         }
 
         &:checked {
-          box-shadow: inset 0 0 0 6px var(--primary);
+          box-shadow: inset 0 0 0 6px #25ce82;
         }
       }
     }
@@ -173,11 +176,10 @@ const SubmitContainer = styled.div`
 
     p {
       font-size: 1.6rem;
+      color: #fff;
       a {
-        color: #000;
         font-weight: 600;
-        text-decoration: none;
-        cursor: pointer;
+        text-decoration: underline;
       }
     }
   }
@@ -190,16 +192,15 @@ const SubmitContainer = styled.div`
     justify-content: flex-start;
     gap: 22.5rem;
     font-size: 1.6rem;
-    color: #5c6877;
-    a {
-      text-decoration: none;
-      color: #000;
+    color: #fff;
+
+    span {
       font-weight: 500;
     }
     button {
       width: 12rem;
       height: 4rem;
-      background: #000;
+      background: #152e4d;
       border-radius: 5px;
       color: #fff;
       font-family: inherit;
@@ -258,7 +259,7 @@ const Register = () => {
                   })}
                 </div>
                 {registerForm.gender === "Other" ? (
-                  <input type="text" placeholder="Other, specify your gender" />
+                  <input type="text" placeholder="Other, Specify Your Gender" />
                 ) : null}
               </div>
             </GenderInputContainer>
@@ -289,7 +290,7 @@ const Register = () => {
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                   >
-                    <rect width="30" height="30" rx="5" fill="#306EE6" />
+                    <rect width="30" height="30" rx="5" fill="#25ce82" />
                     <path
                       d="M7.70711 14.2929C7.31658 13.9024 6.68342 13.9024 6.29289 14.2929C5.90237 14.6834 5.90237 15.3166 6.29289 15.7071L7.70711 14.2929ZM11.9497 19.9497L11.2426 20.6569C11.6332 21.0474 12.2663 21.0474 12.6568 20.6569L11.9497 19.9497ZM23.2639 10.0503C23.6544 9.65975 23.6544 9.02658 23.2639 8.63605C22.8734 8.24552 22.2402 8.2455 21.8497 8.63602L23.2639 10.0503ZM6.29289 15.7071L11.2426 20.6569L12.6569 19.2426L7.70711 14.2929L6.29289 15.7071ZM12.6568 20.6569L23.2639 10.0503L21.8497 8.63602L11.2427 19.2426L12.6568 20.6569Z"
                       fill="white"
@@ -298,16 +299,16 @@ const Register = () => {
                 )}
               </span>
               <p>
-                I agree to the <Link to="/"> Terms of Services </Link>and{" "}
+                I agree to the <Link to="/">Terms and Conditions</Link> and{" "}
                 <Link to="/">Privacy Policy</Link>
               </p>
             </div>
 
             <div>
               <button>Sign Up</button>
-              <p>
-                Already have an account? <Link to="/">Login</Link>
-              </p>
+              <Link to="/">
+                Already have an account? <span>Login</span>
+              </Link>
             </div>
           </SubmitContainer>
         </Form>

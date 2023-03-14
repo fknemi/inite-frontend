@@ -3,107 +3,94 @@ import Layout from "../../components/Layout/Layout";
 import Cube from "../../components/Assets/Cube/Cube";
 import styled from "styled-components";
 import HeroImage from "../../components/Assets/HeroImage/HeroImage";
+import { Link } from "react-router-dom";
 
 const Home = () => {
-  
-
   const Header = styled.header`
     display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: center;
-    padding: 0 8rem;
-    margin-top: 5rem;
-    div {
-      color: #fff;
-      h1 {
-        text-align: center;
-        text-transform: capitalize;
-        letter-spacing: 0.15px;
-        font-size: 4.3rem;
-        font-weight: 600;
-      }
-      p {
-        font-weight: 400;
-        letter-spacing: 0.15px;
-        line-height: 150%;
-        font-size: 2rem;
-        margin-top: -2.5rem;
-      }
-    }
-
-    p,
-    div:nth-child(3) {
-      padding-left: 4.9rem;
-    }
-
-    div:nth-child(3) {
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10rem;
+    padding-top: 10rem;
+    /* border: 2px solid blue; */
+    width: 100%;
+    height: 100%;
+    > div:first-child {
       display: flex;
-      flex-direction: row;
-      align-items: center;
+      flex-direction: column;
       justify-content: center;
-      margin-top: 2rem;
-      gap: 3.5rem;
-      a {
+      color: #fff;
+      /* border: 2px solid pink; */
+      > div:first-child {
+        /* border: 2px solid green; */
+
+        h1 {
+          font-size: 5rem;
+          font-weight: 700;
+          margin: 0;
+        }
+        h2 {
+          font-weight: 300;
+          font-family: "Sofia Sans", sans-serif;
+          font-size: 2.5rem;
+        }
+      }
+      > div:last-child {
         display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
         align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        width: 15rem;
-        height: 4rem;
-        text-align: center;
-        font-size: 1.4rem;
-        border-radius: 5px;
-        color: #fff;
-        font-weight: 500;
-      }
-      a:first-child {
-        background-color: #03b915;
-      }
-      a:last-child {
-        border: 1px solid #fff;
+        gap: 2rem;
+        
+        a {
+          text-decoration: none;
+          color: #fff;
+          font-size: 1.6rem;
+          font-weight: 500;
+          padding: 1rem 2rem;
+          border-radius: 5px;
+          border: 1px solid #E0E1D7;
+        }
+        
+        a:first-child {
+          background: #152E4D;
+          border-color: #152E4D;
+        }
       }
     }
 
-    span {
-      &:first-child {
-        position: relative;
-        z-index: 999;
-        left: -50px;
-        top: -20px;
-      }
-      &:last-child {
-        position: absolute;
-        top: 100px;
-        right: 0;
-      }
+    > div:last-child {
+      /* border: 2px solid red; */
+      width: 20%;
+      height: 100%;
+
+      padding: 2rem;
     }
   `;
 
   return (
     <Layout>
       <Header>
-        <span>
-          <Cube />
-        </span>
         <div>
-          <h1>
-            Keep up with your <br /> favourite creators
-          </h1>
-          <p>
-            Stay on track with your favourite creators and
-            <br />
-            you’ll never miss out on anything
-          </p>
-        </div>
+          <div>
+            <h1>
+              Keep Up With Your
+              <br />
+              Favourite Creators
+            </h1>
+            <h2>
+              Stay on track with your favourite creators and
+              <br />
+              you’ll never miss out on anything
+            </h2>
+          </div>
 
-        <div>
-          <a href="">Get Started</a>
-          <a href="">Learn More</a>
+          <div>
+            <Link to="#">Get Started</Link>
+            <Link to="#">Learn More</Link>
+          </div>
         </div>
-        <span>
-          <HeroImage />
-        </span>
+        <div></div>
       </Header>
     </Layout>
   );

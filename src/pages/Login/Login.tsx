@@ -17,6 +17,7 @@ const FormContainer = styled.div`
   h1 {
     font-weight: 500;
     font-size: 4rem;
+    color: #ffff;
   }
 `;
 
@@ -34,12 +35,15 @@ const Form = styled.div`
     height: 42px;
     padding: 0 0 0 1rem;
     background: #ffffff;
-    border: 2px solid #306ee6;
-    box-shadow: 0px 0px 20px 2px rgba(48, 110, 230, 0.25);
-    border-radius: 5px;
     font-size: 1.6rem;
+    outline-color: transparent;
+    border-radius: 5px;
+    border-color: transparent;
+    box-shadow: 0px 0px 3px rgba(27, 31, 35, 0.15),
+      0px 0px 3px rgba(27, 31, 35, 0.25);
+
     &::placeholder {
-      color: #5c6877;
+      color: #a29d9d;
     }
     outline: none;
   }
@@ -52,27 +56,25 @@ const Form = styled.div`
     button {
       width: 12rem;
       height: 4rem;
-      background: #000000;
       border-radius: 5px;
+      border-color: transparent;
       color: #fff;
       font-family: inherit;
       font-weight: 500;
+      background: #152E4D;
     }
   }
-  a:first-child {
-    color: #5c6877;
+  a {
+    color: #f4f4f4;
     font-size: 1.4rem;
     text-decoration: none;
   }
   a:last-child {
-    color: #5c6877;
-    font-size: 1.4rem;
     text-decoration: none;
     padding-top: 8rem;
-
     span {
-      font-weight: 600;
-      color: #000;
+      font-weight: 500;
+      color: #fff;
     }
   }
 `;
@@ -127,7 +129,7 @@ const Login = () => {
                   let refreshToken = localStorage.getItem(
                     "x-refresh-token"
                   ) as string;
-                  localStorage.setItem("user", JSON.stringify(user))
+                  localStorage.setItem("user", JSON.stringify(user));
                   if (token && refreshToken) {
                     setUser(user);
                     setTokens({

@@ -4,16 +4,18 @@ import { useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
 import { createGlobalStyle } from "styled-components";
 
-const GlobalStyles: any = createGlobalStyle`${(props: any) => props.dynamicStyles}`;
+const GlobalStyles = createGlobalStyle`
+body {
+  background: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+
+}
+
+`;
 const Layout = ({ children }: Props) => {
   const location = useLocation();
   return (
     <div>
-      <GlobalStyles
-        dynamicStyles={
-          location.pathname === "/" ? "body{background-color: #1E003C;}" : ""
-        }
-      />
+      <GlobalStyles />
       <Navbar />
       {children}
     </div>
