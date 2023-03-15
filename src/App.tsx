@@ -21,7 +21,7 @@ import {
 import ProtectedRoute from "./pages/ProtectedRoute/ProtectedRoute";
 import AdminRoute from "./pages/Admin/AdminRoute/AdminRoute";
 import { createGlobalStyle } from "styled-components";
-import { useLocation } from "react-router-dom";
+
 
 const App = () => {
   const GlobalStyles = createGlobalStyle`

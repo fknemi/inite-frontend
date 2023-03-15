@@ -12,10 +12,6 @@ import {
   newNotificationsAlertAtom,
 } from "../../statedrive/atoms";
 
-
-
-
-
 const ProtectedRoute = ({ component: Component, ...rest }: any) => {
   const [user, setUser] = useRecoilState(userAtom);
   const [{ token, refreshToken }, setTokens] = useRecoilState(tokensAtom);
@@ -27,13 +23,13 @@ const ProtectedRoute = ({ component: Component, ...rest }: any) => {
   const setNewNotificationsAlert = useSetRecoilState(newNotificationsAlertAtom);
 
   const navigate = useNavigate();
-  const parseJSON = (item: string) => {
-    try {
-      return JSON.parse(localStorage.getItem(item) as string);
-    } catch {
-      return null;
-    }
-  };
+  // const parseJSON = (item: string) => {
+  //   try {
+  //     return JSON.parse(localStorage.getItem(item) as string);
+  //   } catch {
+  //     return null;
+  //   }
+  // };
 
   useEffect(() => {
     let locationState = location.state as Location & {
@@ -69,8 +65,7 @@ const ProtectedRoute = ({ component: Component, ...rest }: any) => {
         setNotificationSettings(data.notifications);
         setNewNotificationsAlert(true);
 
-        if (Object.keys(user).length && data.emailVerified) {
-          //!data.emailVerified
+        if (Object.keys(user).length && !data.emailVerified) {
           return navigate("/account/verify/email");
         }
       })();

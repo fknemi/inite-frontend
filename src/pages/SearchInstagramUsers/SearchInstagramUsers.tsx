@@ -12,42 +12,65 @@ const SearchContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 8rem;
-  h1 {
-    font-size: 3rem;
+  height: 50vh;
+  
+  > div:first-child {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #ffff;
+    h1 {
+      font-size: 3rem;
+      margin-bottom: -1rem;
+      font-weight: 500;
+    }
+    p {
+      font-family: "DM Sans";
+      font-size: 2rem;
+    }
   }
   span {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    svg {
-      position: absolute;
-      right: calc(35% - 9.8%);
-      transform: rotate(10deg);
-    }
     width: 100%;
+
+    svg {
+      z-index: 11;
+      position: absolute;
+      width: 4rem;
+      left: 28.5%;
+
+      path {
+        fill: #a29d9d;
+        opacity: 0.5;
+      }
+    }
   }
   input {
+    position: relative;
+    z-index: 10;
     font-family: inherit;
-    width: 50%;
+    width: 40vw;
     height: 4rem;
-    padding: 0 0 0 1rem;
+    padding: 0 0 0 4rem; //top right bottom left
     background: #ffffff;
-    border: 2px solid #306ee6;
-    box-shadow: 0px 0px 20px 2px rgba(48, 110, 230, 0.25);
+    box-shadow: 0px 0px 3px rgba(27, 31, 35, 0.15),
+      0px 0px 3px rgba(27, 31, 35, 0.25);
     border-radius: 5px;
     font-size: 1.6rem;
     &::placeholder {
-      color: #5c6877;
+      color: #a29d9d;
     }
     outline: none;
   }
   > h1:last-child {
-    margin-top: 3rem;
     font-size: 3rem;
-    color: #f84747;
+    position: absolute;
     font-weight: 500;
+    top: 50%;
+    color: #ffff;
   }
 `;
 
@@ -71,14 +94,16 @@ const SearchInstagramUsers = () => {
   return (
     <Layout>
       <SearchContainer>
-        <h1>Search</h1>
+        <div>
+          <h1>Search Instagram Users</h1>
+          <p>Find and Follow your Favourite Instagram Creators</p>
+        </div>
 
         <span>
           <input
             type="text"
             value={username}
-            placeholder="Search Instagram User"
-            className="border border-t-1 border-blue-400"
+            placeholder="Search"
             onChange={(e) => {
               setUsername(e.target.value);
               setShowProfileCard(false);
@@ -86,8 +111,8 @@ const SearchInstagramUsers = () => {
             onKeyDown={(e) => e.key === "Enter" && handleSearch()}
           />
           <svg
-            width="24"
-            height="25"
+            width="80%"
+            height="70%"
             viewBox="0 0 24 25"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -112,18 +137,3 @@ const SearchInstagramUsers = () => {
 };
 
 export default SearchInstagramUsers;
-{
-  /* <button
-          className="bg-blue-500 ml-10"
-          onClick={async () => {
-            const { isSuccess, data } = await fetchInstagramUser(username);
-            if (isSuccess) {
-              setInstagramUser(data);
-              localStorage.setItem("instagramUser", JSON.stringify(data));
-              return navigate(`/instagram/profile/${data.username}`);
-            }
-          }}
-        >
-          Search
-        </button> */
-}

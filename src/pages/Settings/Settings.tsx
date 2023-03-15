@@ -16,28 +16,30 @@ const SettingsContainer = styled.div`
   align-items: center;
   width: 100%;
   height: 100vh;
-  > div {
-    height: 100%;
-    border-right: 2px solid #d9d9d9;
-    padding-right: 5rem;
-  }
+  padding-bottom: 4rem;
+  padding-left: 4rem;
 
-  > div > h1 {
-    margin-bottom: 3rem;
-    cursor: pointer;
-    font-size: 2rem;
-    font-wight: 400;
-    color: #000;
-    span {
-      width: 4rem;
-      height: 4rem;
-      svg {
-        width: 100%;
-        height: 100%;
-        path {
-          fill: #d9d9d9;
-        }
-      }
+  > div > div:first-child {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+
+
+    h1 {
+      cursor: pointer;
+      font-size: 3rem;
+      font-wight: 400;
+      color: #fff;
+    }
+
+    p {
+      font-size: 2rem;
+      font-family: "DM Sans";
+      color: #fff;
+      margin-top: -2rem;
+      margin-left: .2rem;
     }
   }
 
@@ -46,20 +48,21 @@ const SettingsContainer = styled.div`
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    font-size: 1.6rem;
+    font-size: 2rem;
     font-weight: 400;
-    color: #BFBFBF;
+    color: #fff;
     gap: 1rem;
     span {
       width: 2.8rem;
       height: 2.8rem;
       svg {
         position: relative;
-        left: 0.2rem;
+        /* left: 0.2rem; */
+        
         width: 100%;
         height: 100%;
         path {
-          fill: #858585;
+          fill: #d9d9d9;
         }
       }
     }
@@ -70,28 +73,31 @@ const SettingsContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    padding-left: .5rem;
+    /* padding-left: 0.5rem; */
     gap: 2rem;
 
-
-    div{
+    div {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: flex-start;
       gap: 1rem;
-      padding-left: 1.5rem;
-      a{
-      text-decoration: none;
-      color: #000;
-      font-size: 1.4rem;
-      font-weight: 500;
-      
-      
-      
-      
+
+      a {
+        text-decoration: none;
+        font-size: 1.6rem;
+        font-weight: 500;
+        font-family: "DM Sans", sans-serif;
+        padding: 1rem;
+        color: #000;
+        background: #ffffff;
+        box-shadow: 0px 0px 3px rgba(27, 31, 35, 0.15),
+          0px 0px 3px rgba(27, 31, 35, 0.25);
+        border-radius: 5px;
+        width: 100%;
+        height: 2rem;
+      }
     }
-  }
     div:nth-child(2) {
       h1 {
         span {
@@ -109,33 +115,28 @@ const SettingsContainer = styled.div`
       }
     }
   }
-  
 `;
 
-const Section = styled.section``;
+const Section = styled.section`
+background: #FFFFFF;
+box-shadow: 0px 0px 3px rgba(27, 31, 35, 0.15), 0px 0px 3px rgba(27, 31, 35, 0.25);
+border-radius: 10px;
+height: 60%;
+width: 60%;
+margin-top: 4rem;
+margin-left: -10rem;
+
+`;
 
 const Settings = () => {
   return (
     <Layout>
       <SettingsContainer>
         <div>
-          <h1>
-            <span>
-              <svg
-                width="100%"
-                height="100%"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M14.2929 18.7071C14.6834 19.0976 15.3166 19.0976 15.7071 18.7071C16.0976 18.3166 16.0976 17.6834 15.7071 17.2929L14.2929 18.7071ZM9 12L8.29289 11.2929C7.90237 11.6834 7.90237 12.3166 8.29289 12.7071L9 12ZM15.7071 6.70711C16.0976 6.31658 16.0976 5.68342 15.7071 5.29289C15.3166 4.90237 14.6834 4.90237 14.2929 5.29289L15.7071 6.70711ZM15.7071 17.2929L9.70711 11.2929L8.29289 12.7071L14.2929 18.7071L15.7071 17.2929ZM9.70711 12.7071L15.7071 6.70711L14.2929 5.29289L8.29289 11.2929L9.70711 12.7071Z"
-                  fill="black"
-                />
-              </svg>
-            </span>
-            Settings
-          </h1>
+          <div className="header">
+            <h1>Settings</h1>
+            <p>Manage your account settings and preferences</p>
+          </div>
 
           <div>
             <div>
@@ -156,14 +157,12 @@ const Settings = () => {
                 </span>
                 Personal
               </h1>
-<div>
-
-
-              <Link to="">Profile</Link>
-              <Link to="">Notifications</Link>
-              <Link to="">Email Notifications</Link>
-              <Link to="">Update Password</Link>
-</div>
+              <div>
+                <Link to="">Profile</Link>
+                <Link to="">Notifications</Link>
+                <Link to="">Email Notifications</Link>
+                <Link to="">Update Password</Link>
+              </div>
             </div>
             <div>
               <h1>
@@ -184,9 +183,8 @@ const Settings = () => {
                 Workspace
               </h1>
               <div>
-
-              <Link to="">Following</Link>
-              <Link to="">Connected Accounts</Link>
+                <Link to="">Following</Link>
+                <Link to="">Connected Accounts</Link>
               </div>
             </div>
             <div>
@@ -208,16 +206,32 @@ const Settings = () => {
                 Other
               </h1>
               <div>
-
-              <Link to="">Help</Link>
-              <Link to="">Terms and Services</Link>
-              <Link to="">Privacy Policy</Link>
+                <Link to="">Help</Link>
+                <Link to="">Terms and Services</Link>
+                <Link to="">Privacy Policy</Link>
               </div>
             </div>
           </div>
         </div>
 
-        <Section></Section>
+        <Section>
+
+hello
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </Section>
       </SettingsContainer>
     </Layout>
   );

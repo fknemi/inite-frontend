@@ -20,8 +20,7 @@ const Users = ({ timeFormat }: { timeFormat: boolean }) => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-2">
-      <h1 className="font-bold">USERS</h1>
+    <>
       {users.map((user: any) => {
         return (
           <User
@@ -32,7 +31,13 @@ const Users = ({ timeFormat }: { timeFormat: boolean }) => {
           />
         );
       })}
-    </div>
+
+
+
+
+
+      
+    </>
   );
 };
 

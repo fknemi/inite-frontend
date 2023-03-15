@@ -12,70 +12,70 @@ const FormContainer = styled.div`
   align-items: center;
   justify-content: center;
   height: 80vh;
+  position: relative;
 
   > div {
-    
     background: #fff;
     box-shadow: 0px 0px 20px 2px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    height: 33rem;
-    width: 43rem;
+    padding: 1rem;
+    height: auto;
+    width: 60rem;
     svg {
       width: 15rem;
       height: 15rem;
     }
 
-    & > :nth-child(2) {
-      margin-top: 3rem;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: flex-start;
-      font-weight: 500;
+    > span {
+      position: relative;
       width: 100%;
-      margin-left: 12rem;
-      line-height: 24px;
-      letter-spacing: 0.4px;
-      h1 {
-        font-size: 2rem;
-      }
-      p {
-        line-height: 20px;
-        padding-left: 2rem;
-        font-size: 1.4rem;
-        color: #858585;
-        position: relative;
-        top: -2rem;
-        font-weight: 400;
+      height: 100%;
+      top: -16%;
+      left: 0;
+
+      svg {
+        width: 4rem;
+        position: absolute;
       }
     }
-    & > :nth-child(3) {
+
+    > div:nth-child(2) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      width: 60%;
+      margin-top: 6rem;
+      h1 {
+        margin: 0;
+        padding: 0;
+        font-weight: 500;
+        font-size: 2.5rem;
+        position: relative;
+        left: -12.5%;
+      }
+      p {
+        font-weight: 400;
+        font-family: "DM Sans";
+        font-size: 1.6rem;
+      }
+    }
+    > div:nth-child(3) {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 1rem;
-      padding-bottom: 7rem;
+      width: 100%;
       button {
+        font-family: "DM Sans";
         background: none;
-        color: #42238c;
-        outline: none;
-        border: none;
-        font-weight: bold;
+        font-size: 1.6rem;
       }
     }
-  }
-
-  div > span > svg {
-    width: 3rem;
-    height: 3rem;
-    position: relative;
-    left: -19.5rem;
-    top: clamp(5rem,5.5rem,6rem);
   }
 `;
 
@@ -120,7 +120,7 @@ const VerifyEmail = () => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <circle cx="20" cy="20.5" r="20" fill="#5B4F88" />
+              <circle cx="20" cy="20.5" r="20" fill="#152E4D" />
               <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -166,7 +166,18 @@ const VerifyEmail = () => {
               />
             </svg>
 
-            <button>Didn’t get the mail? Send it again</button>
+            <button
+              onClick={async () => {
+                const isSuccess = await verifyEmail();
+                if (isSuccess) {
+                  console.log("Send Email Success");
+                } else {
+                  console.log("Send Email Failed");
+                }
+              }}
+            >
+              Didn’t get the mail? Send it again
+            </button>
           </div>
         </div>
       </FormContainer>

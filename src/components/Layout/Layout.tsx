@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
 import { createGlobalStyle } from "styled-components";
 
-const GlobalStyles = createGlobalStyle`
+export const GlobalStyles = createGlobalStyle`
 body {
   background: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
 

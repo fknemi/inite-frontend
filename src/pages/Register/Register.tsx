@@ -211,7 +211,7 @@ const SubmitContainer = styled.div`
 
 const Register = () => {
   const [registerForm, setRegisterForm]: any = useRecoilState(registerAtom);
-  const [disableButton, setDisableButton] = useState(true); // true
+  const [disableButton, setDisableButton] = useState(false); // true
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const navigate = useNavigate();
 
@@ -224,20 +224,49 @@ const Register = () => {
     });
   };
 
+  useEffect(() => {
+    console.log(registerForm);
+  }, [registerForm]);
+
   return (
     <Layout>
       <FormContainer>
         <h1>Create an account</h1>
         <Form className="form">
           <div>
-            <input type="text" placeholder="Name" />
-            <input type="text" placeholder="Username" />
+            <input
+              type="text"
+              placeholder="Name"
+              name="name"
+              onChange={(e) => updateRegisterForm(e)}
+            />
+            <input
+              type="text"
+              placeholder="Username"
+              name="username"
+              onChange={(e) => updateRegisterForm(e)}
+            />
           </div>
           <div>
             <div>
-              <input type="text" placeholder="Email" />
-              <input type="text" placeholder="Password" />
-              <input type="text" placeholder="Confirm Password" />
+              <input
+                type="text"
+                placeholder="Email"
+                name="email"
+                onChange={(e) => updateRegisterForm(e)}
+              />
+              <input
+                type="text"
+                placeholder="Password"
+                name="password"
+                onChange={(e) => updateRegisterForm(e)}
+              />
+              <input
+                type="text"
+                placeholder="Confirm Password"
+                name="confirmPassword"
+                onChange={(e) => updateRegisterForm(e)}
+              />
             </div>
 
             <GenderInputContainer>
@@ -259,7 +288,12 @@ const Register = () => {
                   })}
                 </div>
                 {registerForm.gender === "Other" ? (
-                  <input type="text" placeholder="Other, Specify Your Gender" />
+                  <input
+                    type="text"
+                    placeholder="Other, Specify Your Gender"
+                    name="gender"
+                    onChange={(e) => updateRegisterForm(e)}
+                  />
                 ) : null}
               </div>
             </GenderInputContainer>
@@ -305,7 +339,33 @@ const Register = () => {
             </div>
 
             <div>
-              <button>Sign Up</button>
+              <button
+                disabled={disableButton}
+                className="bg-blue-500"
+                onClick={async () => {
+                  const {
+                    name,
+                    username,
+                    email,
+                    password,
+                    confirmPassword,
+                    gender,
+                  } = registerForm;
+                  console.log("hello")
+                  const isSuccess: Boolean | unknown = await register(
+                    name,
+                    username,
+                    email,
+                    password,
+                    gender
+                  );
+                  if (isSuccess) {
+                    return navigate("/dashboard");
+                  }
+                }}
+              >
+                Sign Up
+              </button>
               <Link to="/">
                 Already have an account? <span>Login</span>
               </Link>

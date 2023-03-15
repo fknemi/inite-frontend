@@ -6,13 +6,15 @@ export const socket = io("http://localhost:5000", {
     "x-token": localStorage.getItem("x-token") || "",
     "x-refresh-token": localStorage.getItem("x-refresh-token") || "",
   },
+  transports: ["websocket"],
 });
 
 export const updateNotifications = async (data: any) => {
-  if (!Object.keys(data).length) {
-    socket.emit("status", 400);
-    return false;
-  }
+  // if (!Object.keys(data).length) {
+  //   socket.emit("status", 400);
+  //   return [];
+  // }
+  console.log(data)
 
   const oldNotifications: any[] =
     parseJSON(localStorage.getItem("notifications") as string) || [];
@@ -28,6 +30,7 @@ export const updateNotifications = async (data: any) => {
 
   localStorage.setItem("notifications", JSON.stringify(newNotifications));
   return newNotifications;
+  return [];
 };
 
 export const deleteReport = async (id: string) => {

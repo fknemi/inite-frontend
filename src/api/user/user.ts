@@ -16,6 +16,7 @@ export const register = async (
       password,
       gender,
     });
+    console.log(req)
     if (req.status === 200) {
       return true;
     }

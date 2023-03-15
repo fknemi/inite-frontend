@@ -97,8 +97,6 @@ const NavButtonsContainer = styled.div`
     background: rgba(246, 246, 246, 0.3);
     backdrop-filter: blur(10px);
     background-size: 2rem;
-
-    
   }
   .profile {
     display: flex;
@@ -172,7 +170,6 @@ const NavButtonsContainer = styled.div`
       align-items: center;
       white-space: nowrap;
       display: flex;
-
       text-decoration: none;
       font-size: 1.4rem;
       letter-spacing: 0.4px;
@@ -238,9 +235,9 @@ const Navbar = () => {
                 <path
                   d="M19.4838 28.9846C19.242 29.4014 18.895 29.7473 18.4776 29.9877C18.0601 30.2282 17.5868 30.3547 17.105 30.3547C16.6232 30.3547 16.1499 30.2282 15.7324 29.9877C15.315 29.7473 14.968 29.4014 14.7263 28.9846M25.355 11.1096C25.355 8.92158 24.4858 6.82316 22.9386 5.27599C21.3914 3.72881 19.293 2.85962 17.105 2.85962C14.9169 2.85962 12.8185 3.72881 11.2713 5.27599C9.72417 6.82316 8.85498 8.92158 8.85498 11.1096C8.85498 20.7346 4.72998 23.4846 4.72998 23.4846H29.48C29.48 23.4846 25.355 20.7346 25.355 11.1096Z"
                   stroke="white"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </svg>
             </NavLink>
@@ -335,7 +332,7 @@ const Navbar = () => {
                   </svg>
                   Inbox
                 </Link>
-                <Link to="/faq">
+                <Link to="/user/account/settings">
                   {" "}
                   <svg
                     width="24"

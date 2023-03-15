@@ -139,7 +139,7 @@ export interface USER {
   media: [];
   followLimit: number;
   followingCount: number;
-  following: { instagramUser: INSTAGRAM_USER; timestamp: string }[];
+  following: INSTAGRAM_USER[];
   followingHistory: { instagramUser: INSTAGRAM_USER; timestamp: string }[];
   isBanned: boolean;
   banReason: string;
@@ -272,5 +272,6 @@ export interface NOTIFICATION_CHANGED_USER {
       }
     | undefined;
   timestamp: number;
+  originalAvatar: string;
   id: string;
 }

@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
 
 const instance: AxiosInstance = axios.create({
-  baseURL: "https://inite-prod-backend-alpha.vercel.app/",
+  baseURL: "http://localhost:5000/",
   headers: {
     "x-token": localStorage.getItem("x-token") || "",
     "x-refresh-token": localStorage.getItem("x-refresh-token") || "",

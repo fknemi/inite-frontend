@@ -8,7 +8,7 @@ import {
 } from "../../statedrive/atoms";
 import { useParams } from "react-router-dom";
 import { recentChangesAtom, showReportModalAtom } from "../../statedrive/atoms";
-import { INSTAGRAM_USER } from "../../@types/types";
+import { INSTAGRAM_USER, changedUser } from "../../@types/types";
 import {
   getInstagramUserMedia,
   fetchRecentChanges,
@@ -19,95 +19,8 @@ import {
 } from "../../api/user/user";
 import ReportUser from "../../components/ReportUser/ReportUser";
 import styled from "styled-components";
-
-const ProfileContainer = styled.div`
-  background: #ffffff;
-  box-shadow: 0px 0px 20px 2px rgba(0, 0, 0, 0.25);
-  border-radius: 5px;
-  width: 87%;
-  height: 87%;
-  margin: 0 auto;
-  margin-top: 20px;
-  margin-bottom: 20px;
-`;
-const InfoContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-top: 5rem;
-  gap: 2rem;
-  img {
-    width: 12rem;
-    height: 12rem;
-    border-radius: 200px;
-  }
-  div:first-child {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    gap: 1rem;
-    span {
-      font-size: 1.5rem;
-      font-weight: 400;
-    }
-
-    h1 {
-      font-size: 2rem;
-      font-weight: 500;
-    }
-  }
-
-  div:nth-child(2) {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 10rem;
-    text-align: center;
-    p {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      font-weight: 500;
-      gap: 0.8rem;
-      span {
-        font-size: 2rem;
-        color: #858585;
-      }
-    }
-  }
-  button {
-    width: 16rem;
-    height: 4rem;
-    background: #000000;
-    border-radius: 5px;
-    color: #fff;
-    font-family: inherit;
-    font-weight: 500;
-  }
-`;
-const MediaContainer = styled.div`
-  margin-left: 5rem;
-  margin-right: 5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  div {
-    display: flex;
-    flex-direction: row;
-    flex-flow: row wrap;
-    align-items: stretch;
-    justify-content: space-between;
-    gap: 5rem;
-  }
-`;
+import { Container, MediaCardsContainer, UserCardContainer } from "./styles";
+import MediaCard from "../../components/MediaCard/MediaCard";
 
 const InstagramUserProfile = () => {
   const { username }: any = useParams();
@@ -135,101 +48,138 @@ const InstagramUserProfile = () => {
         );
       }
       const recentData: any = await fetchRecentChanges(instagramUser);
+      console.log(recentData.data);
       setRecentChanges(recentData.data);
     })();
   }, []);
-
+  console.log(instagramUser);
   return (
-    <>
-      {instagramUser.username === username ? (
-        <>
-          <Layout>
-            <ProfileContainer>
-              <InfoContainer>
-                <div>
-                  <img src={instagramUser.avatar} alt="" />
-                  <span>{instagramUser.username}</span>
-                  <h1>{instagramUser.name}</h1>
-                </div>
+    <Layout>
+      <Container>
+        <UserCardContainer>
+          <div>
+            <span>Private</span>
+            <div>
+              <button
+                onClick={async () => {
+                  if (!isFollowed) {
+                    if (!username) {
+                      return;
+                    }
 
-                <div>
-                  <p>
-                    <span>Posts</span>
-                    {instagramUser.postsCount}
-                  </p>
-                  <p>
-                    <span>Following</span>
-                    {instagramUser.followingCount}
-                  </p>
-                  <p>
-                    <span>Followers</span>
-                    {instagramUser.followedByCount}
-                  </p>
-                  <p>
-                    <span>Account Status</span>
-                    {instagramUser.isPrivate ? "Private" : "Public"}
-                  </p>
-                </div>
-                <button
-                  onClick={async () => {
-                    if (!isFollowed) {
-                      if (!username) {
-                        return;
-                      }
+                    const isSuccess: any = await followInstagramUser(
+                      instagramUser
+                    );
 
-                      const isSuccess: any = await followInstagramUser(
-                        instagramUser
+                    if (isSuccess) {
+                      setIsFollowed(true);
+                      setFollowing([...following, username]);
+                    }
+                    if (!media.length) {
+                      const { data }: any = await getInstagramUserMedia(
+                        username
                       );
-
                       if (isSuccess) {
-                        setIsFollowed(true);
-                        setFollowing([...following, username]);
-                      }
-                      if (!media.length) {
-                        const { data }: any = await getInstagramUserMedia(
-                          username
-                        );
-                        if (isSuccess) {
-                          setMedia(data);
-                        }
-                      }
-                    } else {
-                      const isSuccess = await unfollowInstagramUser(username);
-                      if (isSuccess) {
-                        setIsFollowed(false);
-                        setFollowing(
-                          following.filter((item: string) => item !== username)
-                        );
-                        const { data }: any = await getInstagramUserMedia(
-                          username
-                        );
-                        if (data) {
-                          setMedia(data);
-                        }
+                        setMedia(data);
                       }
                     }
-                  }}
-                >
-                  {isFollowed ? "Unfollow" : "Follow"}
-                </button>
-              </InfoContainer>
+                  } else {
+                    const isSuccess = await unfollowInstagramUser(username);
+                    if (isSuccess) {
+                      setIsFollowed(false);
+                      setFollowing(
+                        following.filter((item: string) => item !== username)
+                      );
+                      const { data }: any = await getInstagramUserMedia(
+                        username
+                      );
+                      if (data) {
+                        setMedia(data);
+                      }
+                    }
+                  }
+                }}
+              >
+                {isFollowed ? "Unfollow" : "Follow"}
+              </button>
+              <button>Report</button>
+            </div>
+          </div>
 
-              <MediaContainer>
-                <h1>Media</h1>
-
-                <div>
-                  {media.map(({ url }: { url: string }) => {
-                    return <img key={url} src={url} alt="" />;
-                  })}
-                </div>
-              </MediaContainer>
-            </ProfileContainer>
-          </Layout>
-        </>
-      ) : (
-        "404"
-      )}
-    </>
+          <div>
+            <img
+              src={
+                recentChanges.avatar &&
+                recentChanges.avatar.isRecent &&
+                recentChanges.avatar.value
+                  ? recentChanges.avatar.value
+                  : instagramUser.avatar
+              }
+              alt=""
+            />
+            <div>
+              <p>
+                <span>500</span>
+                <span>Posts</span>
+              </p>
+              <p>
+                <span>500</span>
+                <span>Followers</span>
+              </p>
+              <p>
+                <span>500</span>
+                <span>Following</span>
+              </p>
+            </div>
+            <div>
+              <div>
+                <h1>
+                  {" "}
+                  {recentChanges.name && recentChanges.name.isRecent ? (
+                    <>
+                      {recentChanges.name.value} Recently Changed (
+                      {instagramUser.name})
+                    </>
+                  ) : (
+                    instagramUser.name
+                  )}
+                </h1>
+                <span>{instagramUser.username}</span>
+              </div>
+              <div>
+                <p>
+                  {" "}
+                  {recentChanges.biography &&
+                  recentChanges.biography.isRecent ? (
+                    <>
+                      {recentChanges.biography.value} Recently Changed (
+                      {instagramUser.biography})
+                    </>
+                  ) : (
+                    instagramUser.biography
+                  )}
+                </p>
+                <span>
+                  {(recentChanges.isPrivate &&
+                    recentChanges.isPrivate.isRecent) ||
+                  instagramUser.isPrivate
+                    ? "*private account"
+                    : "*public account"}
+                </span>
+              </div>
+            </div>
+            <div>
+              <h1>Media</h1>
+              <MediaCardsContainer>
+                {media.map(({ url }: { url: string }) => {
+                  return <MediaCard key={url} url={url} />;
+                })}
+              </MediaCardsContainer>
+            </div>
+          </div>
+        </UserCardContainer>
+      </Container>
+    </Layout>
   );
 };
 
@@ -242,53 +192,61 @@ export default InstagramUserProfile;
 
 //                 <span>
 //                   Name:{" "}
-//                   {recentChanges.name && recentChanges.name.isRecent ? (
-//                     <>
-//                       {recentChanges.name.value} Recently Changed (
-//                       {instagramUser.name})
-//                     </>
-//                   ) : (
-//                     instagramUser.name
-//                   )}
+// {recentChanges.name && recentChanges.name.isRecent ? (
+//   <>
+//     {recentChanges.name.value} Recently Changed (
+//     {instagramUser.name})
+//   </>
+// ) : (
+//   instagramUser.name
+// )}
 //                 </span>
 
 //                 <span>
 //                   Biography:{" "}
-//                   {recentChanges.biography &&
-//                   recentChanges.biography.isRecent ? (
-//                     <>
-//                       {recentChanges.biography.value} Recently Changed (
-//                       {instagramUser.biography})
-//                     </>
-//                   ) : (
-//                     instagramUser.biography
-//                   )}
+// {recentChanges.biography &&
+// recentChanges.biography.isRecent ? (
+//   <>
+//     {recentChanges.biography.value} Recently Changed (
+//     {instagramUser.biography})
+//   </>
+// ) : (
+//   instagramUser.biography
+// )}
 //                 </span>
 
 //                 <span>
 //                   Avatar:{" "}
-//                   {recentChanges.avatar && recentChanges.avatar.isRecent ? (
-//                     <>
-//                       <img src={recentChanges.avatar.value} alt="" /> Recently
-//                       Changed <br /> <img src={instagramUser.avatar} alt="" />
-//                     </>
-//                   ) : (
-//                     <img src={instagramUser.avatar} alt="" />
-//                   )}
+// {recentChanges.avatar && recentChanges.avatar.isRecent ? (
+//   <>
+//     <img src={recentChanges.avatar.value} alt="" /> Recently
+//     Changed <br /> <img src={instagramUser.avatar} alt="" />
+//   </>
+// ) : (
+//   <img src={instagramUser.avatar} alt="" />
+// )}
+
 //                 </span>
 
 //                 <span>
 //                   Private Account:{" "}
+
 //                   {recentChanges.isPrivate &&
 //                   recentChanges.isPrivate.isRecent ? (
 //                     <>
-//                       {recentChanges.isPrivate.value ? "Private" : "Public"}{" "}
+//                       {recentChanges.isPrivate.value ? "Private" : "Public"}
+
+{
+  (" ");
+}
 //                       Recently Changed (
 //                       {instagramUser.isPrivate ? "Private" : "Public"})
 //                     </>
 //                   ) : (
 //                     instagramUser.isPrivate
-//                   )}
+//                   )
+// }
+
 //                 </span>
 
 //                 <span>
@@ -390,3 +348,93 @@ export default InstagramUserProfile;
 //                 <ReportUser username={instagramUser.username} />
 //               ) : null}
 //             </div>
+
+// {instagramUser.username === username ? (
+//   <>
+//     <Layout>
+//       <ProfileContainer>
+//         <InfoContainer>
+//           <div>
+//             <img src={instagramUser.avatar} alt="" />
+//             <span>{instagramUser.username}</span>
+//             <h1>{instagramUser.name}</h1>
+//           </div>
+
+//           <div>
+//             <p>
+//               <span>Posts</span>
+//               {instagramUser.postsCount}
+//             </p>
+//             <p>
+//               <span>Following</span>
+//               {instagramUser.followingCount}
+//             </p>
+//             <p>
+//               <span>Followers</span>
+//               {instagramUser.followedByCount}
+//             </p>
+//             <p>
+//               <span>Account Status</span>
+//               {instagramUser.isPrivate ? "Private" : "Public"}
+//             </p>
+//           </div>
+//           <button
+// onClick={async () => {
+//   if (!isFollowed) {
+//     if (!username) {
+//       return;
+//     }
+
+//     const isSuccess: any = await followInstagramUser(
+//       instagramUser
+//     );
+
+//     if (isSuccess) {
+//       setIsFollowed(true);
+//       setFollowing([...following, username]);
+//     }
+//     if (!media.length) {
+//       const { data }: any = await getInstagramUserMedia(
+//         username
+//       );
+//       if (isSuccess) {
+//         setMedia(data);
+//       }
+//     }
+//   } else {
+//     const isSuccess = await unfollowInstagramUser(username);
+//     if (isSuccess) {
+//       setIsFollowed(false);
+//       setFollowing(
+//         following.filter((item: string) => item !== username)
+//       );
+//       const { data }: any = await getInstagramUserMedia(
+//         username
+//       );
+//       if (data) {
+//         setMedia(data);
+//       }
+//     }
+//   }
+// }}
+
+//           >
+//             {isFollowed ? "Unfollow" : "Follow"}
+//           </button>
+//         </InfoContainer>
+
+//         <MediaContainer>
+//           <h1>Media</h1>
+
+//           <div>
+//             {media.map(({ url }: { url: string }) => {
+//               return <img key={url} src={url} alt="" />;
+//             })}
+//           </div>
+//         </MediaContainer>
+//       </ProfileContainer>
+//     </Layout>
+//   </>
+// ) : (
+//   "404"
+// )}

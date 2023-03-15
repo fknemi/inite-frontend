@@ -61,7 +61,7 @@ const Form = styled.div`
       color: #fff;
       font-family: inherit;
       font-weight: 500;
-      background: #152E4D;
+      background: #152e4d;
     }
   }
   a {
@@ -97,6 +97,7 @@ const Login = () => {
             placeholder="Email"
             onChange={(e: React.SyntheticEvent) =>
               setLoginForm({
+                ...loginForm,
                 email: (e.target as HTMLInputElement).value,
               })
             }
@@ -136,6 +137,9 @@ const Login = () => {
                       token: token,
                       refreshToken: refreshToken,
                     });
+                  }
+                  if (!user.emailVerified) {
+                    return navigate("/account/verify/email");
                   }
                   return navigate("/dashboard");
                 }

@@ -7,6 +7,7 @@ import {
   getUserDetails,
 } from "../../../api/owner/owner";
 import { usersAtom } from "../../../statedrive/atoms";
+import styled from "styled-components";
 import {
   resetUserPassword,
   promoteAdmin,
@@ -14,6 +15,44 @@ import {
 } from "../../../api/owner/owner";
 
 let BUTTON_STYLE = "mt-5 disabled:bg-gray-400 w-40 h-7 rounded-md bg-green-400";
+
+export const ActionButtonsContainer = styled.div`
+  position: absolute;
+  background: #ffffff;
+  box-shadow: 0px 0px 3px rgba(27, 31, 35, 0.15),
+    0px 0px 3px rgba(27, 31, 35, 0.25);
+  border-radius: 10px;
+  right: 1.5rem;
+
+  &,
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  button {
+    width: 18rem;
+    background: none;
+    font-size: 1.6rem;
+    width: 100%;
+    text-align: left;
+    padding: 1rem;
+    padding-right: 1rem;
+  }
+  button:hover {
+    background: rgba(246, 246, 246, 1);
+    backdrop-filter: blur(10px);
+  }
+  button:last-child {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+  button:first-child {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+`;
 
 const ActionButtons = ({ _isBanned, _isOwner, username }: any) => {
   const [isBanned, setIsBanned]: any = useState(_isBanned);
@@ -24,43 +63,43 @@ const ActionButtons = ({ _isBanned, _isOwner, username }: any) => {
   const [hideActions, setHideActions] = useState(false);
 
   return (
-    <div>
-      <div className={`${hideActions ? "hidden" : ""} flex flex-col gap-2`}>
-        {!isBanned ? (
-          <button
-            className={BUTTON_STYLE}
-            onClick={async () => {
-              const { isSuccess, wasAuthorized } = await banUser(username);
-              if (!isSuccess && !wasAuthorized) {
-                alert("NOT AUTHORIZED FOR THIS ACTION");
-                return setHideActions(true);
-              }
-              if (isSuccess) {
-                return setIsBanned(true);
-              }
-            }}
-          >
-            Ban
-          </button>
-        ) : (
-          <button
-            className={BUTTON_STYLE}
-            onClick={async () => {
-              const { isSuccess, wasAuthorized } = await unbanUser(username);
-              if (!isSuccess && !wasAuthorized) {
-                alert("NOT AUTHORIZED FOR THIS ACTION");
-                return setHideActions(true);
-              }
-              if (isSuccess) {
-                return setIsBanned(false);
-              }
-            }}
-          >
-            Unban
-          </button>
-        )}
+    <ActionButtonsContainer>
+      {!isBanned ? (
+        <button
+          className={BUTTON_STYLE}
+          onClick={async () => {
+            const { isSuccess, wasAuthorized } = await banUser(username);
+            if (!isSuccess && !wasAuthorized) {
+              alert("NOT AUTHORIZED FOR THIS ACTION");
+              return setHideActions(true);
+            }
+            if (isSuccess) {
+              return setIsBanned(true);
+            }
+          }}
+        >
+          Ban
+        </button>
+      ) : (
+        <button
+          className={BUTTON_STYLE}
+          onClick={async () => {
+            const { isSuccess, wasAuthorized } = await unbanUser(username);
+            if (!isSuccess && !wasAuthorized) {
+              alert("NOT AUTHORIZED FOR THIS ACTION");
+              return setHideActions(true);
+            }
+            if (isSuccess) {
+              return setIsBanned(false);
+            }
+          }}
+        >
+          Unban
+        </button>
+      )}
 
-        <div className={`${!isOwner ? "hidden" : ""} flex flex-col gap-2`}>
+      {isOwner ? (
+        <div>
           <button
             className={BUTTON_STYLE}
             onClick={async () => {
@@ -184,8 +223,8 @@ const ActionButtons = ({ _isBanned, _isOwner, username }: any) => {
             Reset User Password
           </button>
         </div>
-      </div>
-    </div>
+      ) : null}
+    </ActionButtonsContainer>
   );
 };
 

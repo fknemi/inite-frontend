@@ -5,7 +5,8 @@ import { adminAtom, instagramUsersAtom } from "../../../statedrive/atoms";
 import InstagramUser from "./InstagramUser";
 
 const InstagramUsers = ({ timeFormat }: { timeFormat: boolean }) => {
-  const [instagramUsers, setInstagramUsers] = useRecoilState(instagramUsersAtom);
+  const [instagramUsers, setInstagramUsers] =
+    useRecoilState(instagramUsersAtom);
   const [admin, setAdmin] = useRecoilState(adminAtom);
 
   useEffect(() => {
@@ -19,18 +20,16 @@ const InstagramUsers = ({ timeFormat }: { timeFormat: boolean }) => {
   }, []);
   return (
     <>
-      <div className="flex flex-col gap-2">
-        {instagramUsers.map((user: any) => {
-          return (
-            <InstagramUser
-              key={user.username}
-              isOwner={admin.isOwner || false}
-              instagramUser={user}
-              timeFormat={timeFormat}
-            />
-          );
-        })}
-      </div>
+      {instagramUsers.map((user: any) => {
+        return (
+          <InstagramUser
+            key={user.username}
+            isOwner={admin.isOwner || false}
+            instagramUser={user}
+            timeFormat={timeFormat}
+          />
+        );
+      })}
     </>
   );
 };

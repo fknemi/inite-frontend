@@ -8,9 +8,28 @@ import {
 import Details from "./Details";
 import { useRecoilState } from "recoil";
 import { instagramUsersAtom } from "../../../statedrive/atoms";
+import { ActionButtonsContainer } from "../Users/ActionButtons";
 
-let BUTTON_STYLE =
-  "mt-5 disabled:bg-gray-400 w-5/6 h-7 rounded-md bg-green-400";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const ActionButtons = ({
   _isBanned,
   _isOwner,
@@ -29,11 +48,10 @@ const ActionButtons = ({
 
   const [hideActions, setHideActions] = useState(false);
   return (
-    <div>
-      <div className={`${hideActions ? "hidden" : ""}`}>
+    <ActionButtonsContainer>
+      <div>
         {!isBanned ? (
           <button
-            className={BUTTON_STYLE}
             onClick={async () => {
               const { isSuccess, wasAuthorized } = await banInstagramUser(
                 username
@@ -51,7 +69,7 @@ const ActionButtons = ({
           </button>
         ) : (
           <button
-            className={BUTTON_STYLE}
+            
             onClick={async () => {
               const { isSuccess, wasAuthorized } = await unbanInstagramUser(
                 username
@@ -71,7 +89,7 @@ const ActionButtons = ({
 
         <div className={`${!isOwner ? "hidden" : ""}`}>
           <button
-            className={BUTTON_STYLE}
+            
             onClick={async () => {
               const { isSuccess, wasAuthorized, data } =
                 await getInstagramUserDetails(_isOwner, username);
@@ -89,7 +107,7 @@ const ActionButtons = ({
 
         <div>
           <button
-            className={BUTTON_STYLE}
+            
             onClick={async () => {
               setDeleteMedia(true);
               const { isSuccess, wasAuthorized } = await deleteInstagramUser(
@@ -115,7 +133,7 @@ const ActionButtons = ({
         </div>
 
         <button
-          className={BUTTON_STYLE}
+          
           onClick={async () => {
             setDeleteMedia(true);
             const { isSuccess, wasAuthorized } = await deleteInstagramUserMedia(
@@ -139,7 +157,7 @@ const ActionButtons = ({
 
         {/* {isOwner ? <Details  instagramUserDetails={instagramUserDetails} /> : ""} */}
       </div>
-    </div>
+    </ActionButtonsContainer>
   );
 };
 export default ActionButtons;
