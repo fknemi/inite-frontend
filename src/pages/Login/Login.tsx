@@ -29,6 +29,7 @@ const Form = styled.div`
   gap: 1.2rem;
   width: 100%;
   margin-top: 3rem;
+
   input {
     font-family: inherit;
     width: 40%;
@@ -47,12 +48,24 @@ const Form = styled.div`
     }
     outline: none;
   }
+  @media only screen and (max-width: 768px) {
+    input {
+      width: 80%;
+    }
+  }
   div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: top;
     width: 41%;
+    @media only screen and (max-width: 768px) {
+      width: 80%;
+      button {
+        width: 8rem;
+        height: 3rem;
+      }
+    }
     button {
       width: 12rem;
       height: 4rem;

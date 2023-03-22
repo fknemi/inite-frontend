@@ -34,8 +34,12 @@ const DashboardProfileCardContainer = styled.div`
     span {
       font-weight: 500;
     }
+    h1 {
+      font-size: 2rem;
+    }
     span {
       margin-top: -1rem;
+      font-size: 1.6rem;
     }
   }
 

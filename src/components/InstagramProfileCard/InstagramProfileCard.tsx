@@ -42,6 +42,7 @@ const CardContainer = styled.div`
       font-weight: inherit;
     }
   }
+  
   a {
     display: flex;
     justify-content: center;
@@ -58,6 +59,9 @@ const CardContainer = styled.div`
     text-decoration: none;
     position: relative;
     top: 5rem;
+  }
+  @media only screen and (max-width: 640px) {
+    a{width: 80%;}
   }
 `;
 

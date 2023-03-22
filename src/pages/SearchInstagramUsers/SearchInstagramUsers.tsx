@@ -13,12 +13,13 @@ const SearchContainer = styled.div`
   justify-content: center;
   align-items: center;
   height: 50vh;
-  
+
   > div:first-child {
     display: flex;
     flex-direction: column;
     align-items: center;
     color: #ffff;
+
     h1 {
       font-size: 3rem;
       margin-bottom: -1rem;
@@ -28,6 +29,14 @@ const SearchContainer = styled.div`
       font-family: "DM Sans";
       font-size: 2rem;
     }
+    @media only screen and (max-width: 768px) {
+      h1 {
+        font-size: 3rem;
+      }
+      p {
+        font-size: 1.6rem;
+      }
+    }
   }
   span {
     position: relative;
@@ -35,6 +44,11 @@ const SearchContainer = styled.div`
     align-items: center;
     justify-content: center;
     width: 100%;
+    @media only screen and (max-width: 768px) {
+      svg {
+        display: none;
+      }
+    }
 
     svg {
       z-index: 11;
@@ -48,6 +62,7 @@ const SearchContainer = styled.div`
       }
     }
   }
+
   input {
     position: relative;
     z-index: 10;
@@ -65,6 +80,17 @@ const SearchContainer = styled.div`
     }
     outline: none;
   }
+  @media only screen and (max-width: 768px) {
+    input {
+      padding: 0 0 0 0.5rem; // top right bottom left
+      width: 60vw;
+    }
+  }
+  @media only screen and (max-width: 480px) {
+     input {
+      width: 80vw;
+     } 
+    }
   > h1:last-child {
     font-size: 3rem;
     position: absolute;

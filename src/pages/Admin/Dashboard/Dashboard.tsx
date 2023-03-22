@@ -63,14 +63,10 @@ const ListContainer = styled.div`
     width: 100%;
     border-collapse: collapse;
     border-spacing: 0;
-
     border-radius: 10px;
     overflow: hidden;
     font-size: 1.6rem;
-
-    table {
-      border-collapse: collapse;
-    }
+    border-collapse: collapse;
 
     th,
     td {
@@ -87,13 +83,31 @@ const ListContainer = styled.div`
       font-weight: 400;
     }
   }
+  .user {
+    h2 {
+      font-size: 2rem;
+    }
+    span {
+      font-size: 1.6rem;
+      position: relative;
+      top: -0.5rem;
+    }
+  }
+  .reason {
+    span {
+      background: #c5e6f9;
+      backdrop-filter: blur(10px);
+      border-radius: 5px;
+      padding: 1rem;
+    }
+  }
 `;
 
 const AdminDashboard = () => {
   const [admin, setAdmin] = useRecoilState(adminAtom);
   const navigate = useNavigate();
   const [timeFormat, setTimeFormat] = useState(false);
-  const [selected, setSelected] = useState("users");
+  const [selected, setSelected] = useState("reports");
   const featuresList = ["users", "instagram-users", "logs", "reports"];
 
   return (
@@ -120,11 +134,23 @@ const AdminDashboard = () => {
         <table>
           <tbody>
             <tr>
-              <th>Avatar</th>
-              <th>Name</th>
-              <th>Account Created At</th>
-              {selected === "users" && <th>Role</th>}
-              <th></th>
+              {selected === "reports" ? (
+                <>
+                  <th>Reported User</th>
+                  <th>Reported By</th>
+                  <th>Reported At</th>
+                  <th>Reason</th>
+                  <th></th>
+                </>
+              ) : (
+                <>
+                  <th>Avatar</th>
+                  <th>Name</th>
+                  <th>Account Created At</th>
+                  {selected === "users" && <th>Role</th>}
+                  <th></th>
+                </>
+              )}
             </tr>
             {selected === "users" && <Users timeFormat={timeFormat} />}
             {selected === "instagram-users" && (

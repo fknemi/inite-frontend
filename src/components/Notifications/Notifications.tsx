@@ -36,8 +36,8 @@ const NotificationCardsContainer = styled.div`
   height: 100%;
 `;
 
-const READ_NOTIFICATION_AGE = 720 * 60 * 1000; // 12 hours
-// const READ_NOTIFICATION_AGE = 10 * 1000; // 10 seconds
+// const READ_NOTIFICATION_AGE = 720 * 60 * 1000; // 12 hours
+const READ_NOTIFICATION_AGE = 10 * 1000; // 10 seconds
 const Notifications = () => {
   const [notifications, setNotifications] = useRecoilState(notificationsAtom);
   useEffect(() => {

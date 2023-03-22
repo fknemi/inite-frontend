@@ -25,34 +25,27 @@ export interface NotificationSettings {
 }
 
 export interface NotificationsDescriptions {
-  [key: string]: { name: string; desc: string };
+  [key: string]: { name: string };
   newAccountNameChange: {
     name: string;
-    desc: string;
   };
   newPosts: {
     name: string;
-    desc: string;
   };
   newFollowers: {
     name: string;
-    desc: string;
   };
   startedFollowingNewUsers: {
     name: string;
-    desc: string;
   };
   newBiography: {
     name: string;
-    desc: string;
   };
   newAvatar: {
     name: string;
-    desc: string;
   };
   newAccountPrivacyChange: {
     name: string;
-    desc: string;
   };
 }
 

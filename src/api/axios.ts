@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
 
 const instance: AxiosInstance = axios.create({
-  baseURL: "http://localhost:5000/",
+  baseURL: process.env.API_ENDPOINT,
   headers: {
     "x-token": localStorage.getItem("x-token") || "",
     "x-refresh-token": localStorage.getItem("x-refresh-token") || "",

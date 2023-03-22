@@ -11,10 +11,13 @@ const Home = () => {
     justify-content: space-between;
     align-items: center;
     padding-left: 10rem;
-    padding-top: 10rem;
+    padding-top: 15rem;
     /* border: 2px solid blue; */
     width: 100%;
     height: 100%;
+    @media only screen and (max-width: 640px) {
+      padding-left: 4rem;
+    }
     > div:first-child {
       display: flex;
       flex-direction: column;
@@ -34,6 +37,22 @@ const Home = () => {
           font-family: "Sofia Sans", sans-serif;
           font-size: 2.5rem;
         }
+        @media only screen and (max-width: 640px) {
+          h1 {
+            font-size: 4rem;
+          }
+          h2 {
+            font-size: 2rem;
+          }
+        }
+        @media only screen and (max-width: 480px) {
+          h1 {
+            font-size: 3rem;
+          }
+          h2 {
+            font-size: 1.5rem;
+          }
+        }
       }
       > div:last-child {
         display: flex;
@@ -41,7 +60,7 @@ const Home = () => {
         justify-content: flex-start;
         align-items: center;
         gap: 2rem;
-        
+
         a {
           text-decoration: none;
           color: #fff;
@@ -49,13 +68,23 @@ const Home = () => {
           font-weight: 500;
           padding: 1rem 2rem;
           border-radius: 5px;
-          border: 1px solid #E0E1D7;
+          border: 1px solid #e0e1d7;
         }
-        
+
         a:first-child {
-          background: #152E4D;
-          border-color: #152E4D;
+          background: #152e4d;
+          border-color: #152e4d;
         }
+        @media only screen and (max-width: 640px) {
+          a {
+            font-size: 1.2rem;
+            padding: 1rem 2rem;
+          }
+        }
+        @media only screen and (max-width: 480px) {
+          a{
+            font-size: 1rem;
+            padding: 1rem 3rem;
       }
     }
 
@@ -63,7 +92,6 @@ const Home = () => {
       /* border: 2px solid red; */
       width: 20%;
       height: 100%;
-
       padding: 2rem;
     }
   `;

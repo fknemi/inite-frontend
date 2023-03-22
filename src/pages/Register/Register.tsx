@@ -38,6 +38,9 @@ const Form = styled.div`
     input {
       width: 100%;
     }
+    @media only screen and (max-width: 768px) {
+      width: 70%;
+    }
   }
   div:nth-child(2) {
     width: 100%;
@@ -56,6 +59,14 @@ const Form = styled.div`
         width: calc(100% - 1.4rem);
       }
       gap: 1rem;
+      @media only screen and (max-width: 768px) {
+        input {
+          width: 137%;
+        }
+        div:nth-child(2) {
+          flex-direction: column;
+        }
+      }
     }
     div:nth-child(2) {
       display: flex;
@@ -89,13 +100,25 @@ const GenderInputContainer = styled.div`
     display: flex;
     align-self: flex-start;
     flex-direction: column;
+    //
 
+    
+      
     div:first-child {
       display: flex;
       flex-direction: row;
       margin-left: -0.3rem;
-
-      label {
+      @media only screen and (max-width: 768px) {
+        
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 80vw;
+        margin-left: -5rem; */
+        
+      }
+      
+      label {      
         white-space: nowrap;
         border-radius: 50px;
         display: inline-flex;
@@ -153,6 +176,9 @@ const SubmitContainer = styled.div`
   align-items: center;
   justify-content: center;
   width: 50%;
+  @media only screen and (max-width: 768px) {
+    width: 70%;
+  }
 
   div:first-child {
     width: 100%;
@@ -197,6 +223,7 @@ const SubmitContainer = styled.div`
     span {
       font-weight: 500;
     }
+
     button {
       width: 12rem;
       height: 4rem;
@@ -205,6 +232,13 @@ const SubmitContainer = styled.div`
       color: #fff;
       font-family: inherit;
       font-weight: 500;
+    }
+    @media only screen and (max-width: 768px) {
+      flex-direction: column;
+      gap: 2rem;
+      button {
+        width: 60%;
+      }
     }
   }
 `;
@@ -351,7 +385,7 @@ const Register = () => {
                     confirmPassword,
                     gender,
                   } = registerForm;
-                  console.log("hello")
+                  console.log("hello");
                   const isSuccess: Boolean | unknown = await register(
                     name,
                     username,

@@ -37,6 +37,9 @@ const AdminLoginContainer = styled.div`
     align-items: center;
     width: 40vw;
     gap: 1.2rem;
+    @media only screen and (max-width: 768px) {
+      width: 70vw;
+    }
     input {
       font-family: inherit;
       width: 100%;
@@ -55,6 +58,7 @@ const AdminLoginContainer = styled.div`
       }
       outline: none;
     }
+    
   }
   button {
     width: 12rem;

@@ -103,6 +103,7 @@ const InstagramUserProfile = () => {
                 {isFollowed ? "Unfollow" : "Follow"}
               </button>
               <button>Report</button>
+              <ReportUser username={instagramUser.username} />
             </div>
           </div>
 
@@ -119,15 +120,15 @@ const InstagramUserProfile = () => {
             />
             <div>
               <p>
-                <span>500</span>
+                <span>{instagramUser.postsCount}</span>
                 <span>Posts</span>
               </p>
               <p>
-                <span>500</span>
+                <span>{instagramUser.followedByCount}</span>
                 <span>Followers</span>
               </p>
               <p>
-                <span>500</span>
+                <span>{instagramUser.followingCount}</span>
                 <span>Following</span>
               </p>
             </div>
@@ -336,6 +337,7 @@ export default InstagramUserProfile;
 //                 return <img key={url} src={url} alt="" />;
 //               })}
 //               </div> */}
+
 //                 {!showReportModal ? (
 //                   <button onClick={() => setShowReportModal(!showReportModal)}>
 //                     Report User
@@ -345,7 +347,7 @@ export default InstagramUserProfile;
 //                 <div></div>
 //               </div>
 //               {showReportModal ? (
-//                 <ReportUser username={instagramUser.username} />
+// <ReportUser username={instagramUser.username} />
 //               ) : null}
 //             </div>
 

@@ -23,6 +23,10 @@ export const ActionButtonsContainer = styled.div`
     0px 0px 3px rgba(27, 31, 35, 0.25);
   border-radius: 10px;
   right: 1.5rem;
+  &.report {
+    right: 10rem;
+    width: 18rem;
+  }
 
   &,
   div {

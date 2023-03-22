@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import NotificationSettings from "../../components/Settings/NotificationSettings";
 import UpdatePassword from "../../components/Settings/UpdatePassword";
 import Account from "../../components/Settings/Account";
@@ -8,6 +8,12 @@ import LinkAccounts from "../../components/Settings/LinkAccounts";
 import Layout from "../../components/Layout/Layout";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import DetailsCard from "../../components/DetailsCard/DetailsCard";
+import { useRecoilState } from "recoil";
+import { userAtom } from "../../statedrive/atoms";
+import { useEffect } from "react";
+import { INSTAGRAM_USER } from "../../@types/types";
+import FollowedAccounts from "../../components/Settings/FollowedAccounts";
 
 const SettingsContainer = styled.div`
   display: flex;
@@ -15,7 +21,6 @@ const SettingsContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  height: 100vh;
   padding-bottom: 4rem;
   padding-left: 4rem;
 
@@ -24,8 +29,6 @@ const SettingsContainer = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-
-
 
     h1 {
       cursor: pointer;
@@ -39,7 +42,7 @@ const SettingsContainer = styled.div`
       font-family: "DM Sans";
       color: #fff;
       margin-top: -2rem;
-      margin-left: .2rem;
+      margin-left: 0.2rem;
     }
   }
 
@@ -58,7 +61,7 @@ const SettingsContainer = styled.div`
       svg {
         position: relative;
         /* left: 0.2rem; */
-        
+
         width: 100%;
         height: 100%;
         path {
@@ -68,7 +71,7 @@ const SettingsContainer = styled.div`
     }
   }
 
-  div div {
+  > div div {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -118,22 +121,97 @@ const SettingsContainer = styled.div`
 `;
 
 const Section = styled.section`
-background: #FFFFFF;
-box-shadow: 0px 0px 3px rgba(27, 31, 35, 0.15), 0px 0px 3px rgba(27, 31, 35, 0.25);
-border-radius: 10px;
-height: 60%;
-width: 60%;
-margin-top: 4rem;
-margin-left: -10rem;
+  background: #ffffff;
+  box-shadow: 0px 0px 3px rgba(27, 31, 35, 0.15),
+    0px 0px 3px rgba(27, 31, 35, 0.25);
+  border-radius: 10px;
+  width: 60%;
+  margin-top: 20rem;
+  margin-left: -10rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 2rem;
 
+  > div:first-child {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    div {
+      padding: 1rem;
+
+      h1 {
+        font-size: 2rem;
+        color: #000;
+        font-weight: 500;
+        font-size: 2rem;
+      }
+      p {
+        font-size: 1.6rem;
+        font-family: "DM Sans";
+        font-weight: 400;
+        margin-top: -1rem;
+      }
+    }
+
+    img {
+      width: 10rem;
+      height: 10rem;
+      border-radius: 200px;
+      padding: 2rem;
+    }
+  }
+  > div:nth-child(2) {
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 2rem;
+  }
 `;
 
 const Settings = () => {
+  const [user, setUser] = useRecoilState(userAtom);
+  const [details, setDetails] = useState([
+    {
+      name: "Email Address",
+      key: "email",
+      link: user.emailVerified ? "Verified" : "Not Verified",
+    },
+    {
+      name: "Name",
+      key: "name",
+    },
+    {
+      name: "Username",
+      key: "username",
+    },
+    {
+      name: "Gender",
+      key: "gender",
+    },
+    {
+      name: "Follow Limit",
+      key: "followLimit",
+    },
+    {
+      name: "Currently Following",
+      key: "following",
+    },
+  ]);
+
+  useEffect(() => {}, []);
+
   return (
     <Layout>
       <SettingsContainer>
         <div>
-          <div className="header">
+          <div>
             <h1>Settings</h1>
             <p>Manage your account settings and preferences</p>
           </div>
@@ -215,22 +293,24 @@ const Settings = () => {
         </div>
 
         <Section>
+          <div>
+            <div>
+              <h1>Your Profile</h1>
+              <p>
+                {" "}
+                Here you can view your private account information about
+                yourself.
+              </p>
+            </div>
+            <img src={user.avatar} alt="" />
+          </div>
 
-hello
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+          <div>
+            {/* <NotificationSettings /> */}
+            {/* {<EmailNotifications/>} */}
+            {/* {<FollowedAccounts />} */}
+            {<UpdatePassword />}
+          </div>
         </Section>
       </SettingsContainer>
     </Layout>
@@ -247,3 +327,17 @@ export default Settings;
 <UpdatePassword />
 <Link to=""Accounts /> */
 }
+
+// {details.map((details) => {
+//   let detail = user[details.key as any as keyof typeof user];
+//   if (typeof detail === "object") {
+//     detail = (detail as Array<INSTAGRAM_USER>).length;
+//   }
+//   return (
+//     <DetailsCard key={details.key}>
+//       <span>{details.name}</span>
+//       <p>{detail}</p>
+//       <Link to="">{details.link || ""}</Link>
+//     </DetailsCard>
+//   );
+// })}
