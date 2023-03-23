@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
 
 const instance: AxiosInstance = axios.create({
-  baseURL: process.env.REACT_API_ENDPOINT,
+  baseURL: "https://inite-backend-production-1f02.up.railway.app/",
   headers: {
     "x-token": localStorage.getItem("x-token") || "",
     "x-refresh-token": localStorage.getItem("x-refresh-token") || "",
