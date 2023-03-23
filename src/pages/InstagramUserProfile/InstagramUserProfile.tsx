@@ -102,8 +102,12 @@ const InstagramUserProfile = () => {
               >
                 {isFollowed ? "Unfollow" : "Follow"}
               </button>
-              <button>Report</button>
-              <ReportUser username={instagramUser.username} />
+              <button onClick={() => setShowReportModal(!showReportModal)}>
+                Report
+              </button>
+              {showReportModal && (
+                <ReportUser username={instagramUser.username} />
+              )}
             </div>
           </div>
 

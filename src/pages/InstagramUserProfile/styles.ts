@@ -7,6 +7,8 @@ export const Container = styled.div`
   justify-content: center;
   width: 100vw;
   margin: 0 auto;
+  padding-bottom: 2rem;
+  overflow-x: hidden;
 `;
 export const UserCardContainer = styled.div`
   display: flex;
@@ -146,8 +148,26 @@ export const UserCardContainer = styled.div`
       }
     }
   }
+
+  @media only screen and (max-width: 900px) {
+    width: 95%;
+    > div:nth-child(2) > div:nth-child(2) {
+      p {
+        font-size: 1.4rem;
+      }
+      span:first-child {
+        font-size: 1.2rem;
+      }
+    }
+  }
 `;
 
 export const MediaCardsContainer = styled.div`
   height: 100%;
+  width: 100%;
+  gap: 2rem;
+  display: flex;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  
 `;

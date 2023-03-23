@@ -21,7 +21,7 @@ const NotificationCardContainer = styled.div`
   gap: 1rem;
   color: #000;
   padding: 1rem;
-  width: 40%;
+  width: 60rem;
 
   p {
     font-size: 1.6rem;
@@ -68,6 +68,34 @@ const NotificationCardContainer = styled.div`
       align-items: flex-start;
       justify-content: center;
       gap: 4rem;
+    }
+  }
+  @media only screen and (max-width: 768px) {
+    overflow-x: hidden;
+    width: 40rem;
+    height: 5rem;
+    position: relative;
+    p {
+      font-size: 1.4rem;
+      position: relative;
+    }
+    img {
+      position: relative;
+      top: 2rem;
+    }
+    > div:first-child svg {
+      width: 1.5rem;
+    }
+  }
+  @media only screen and (max-width: 468px) {
+    height: 4rem;
+    width: 80vw;
+
+    img {
+      top: 1.4rem;
+    }
+    p {
+      font-size: 1.2rem;
     }
   }
 `;
