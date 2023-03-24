@@ -85,9 +85,7 @@ export const deleteInstagramUserMedia = async (
     const req = await instance.put("/owner/instagram/user/media/delete", {
       username,
     });
-    console.log("====================================");
-    console.log(req);
-    console.log("====================================");
+
     if (req.status === 200) {
       return { isSuccess: true, wasAuthorized: true };
     }

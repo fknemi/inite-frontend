@@ -6,9 +6,7 @@ import { InstagramLink } from "../SocialButtons/LoginButtons";
 
 const LinkAccounts = () => {
   const { modalOpen, selected, setSelected, setModalState } = useModal();
-  useEffect(() => {
-    console.log(selected);
-  }, [selected]);
+  
   return (
     <div>
       <h1 className="font-bold text-lg">LinkAccounts</h1>

@@ -258,9 +258,7 @@ const Register = () => {
     });
   };
 
-  useEffect(() => {
-    console.log(registerForm);
-  }, [registerForm]);
+  
 
   return (
     <Layout>
@@ -340,7 +338,7 @@ const Register = () => {
                   type="checkbox"
                   onChange={() => setAcceptedTerms(!acceptedTerms)}
                 />
-                {acceptedTerms ? (
+                {!acceptedTerms ? (
                   <svg
                     width="100%"
                     height="100%"
@@ -385,7 +383,7 @@ const Register = () => {
                     confirmPassword,
                     gender,
                   } = registerForm;
-                  console.log("hello");
+                  
                   const isSuccess: Boolean | unknown = await register(
                     name,
                     username,
@@ -394,7 +392,7 @@ const Register = () => {
                     gender
                   );
                   if (isSuccess) {
-                    return navigate("/dashboard");
+                    return window.location.replace("/dashboard");
                   }
                 }}
               >

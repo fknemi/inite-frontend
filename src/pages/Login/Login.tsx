@@ -136,7 +136,7 @@ const Login = () => {
                 if (!email || !password) {
                   return "";
                 }
-                console.log(email, password);
+                
                 const { isSuccess, user }: any = await login(email, password);
                 if (isSuccess) {
                   let token = localStorage.getItem("x-token") as string;
@@ -151,6 +151,7 @@ const Login = () => {
                       refreshToken: refreshToken,
                     });
                   }
+                  
                   if (!user.emailVerified) {
                     return navigate("/account/verify/email");
                   }

@@ -48,11 +48,11 @@ const InstagramUserProfile = () => {
         );
       }
       const recentData: any = await fetchRecentChanges(instagramUser);
-      console.log(recentData.data);
+      
       setRecentChanges(recentData.data);
     })();
   }, []);
-  console.log(instagramUser);
+  
   return (
     <Layout>
       <Container>

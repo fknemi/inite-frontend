@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 
 import { useRecoilState } from "recoil";
-import { userAtom } from "../../statedrive/atoms";
+import { loggedInStatusAtom, userAtom } from "../../statedrive/atoms";
 import { logout } from "../../api/user/user";
 import {
   Nav,
@@ -16,10 +16,9 @@ import {
 const Navbar = () => {
   const location = useLocation();
   const [user] = useRecoilState(userAtom);
+  const [loggedInStatus] = useRecoilState(loggedInStatusAtom);
   const [showMenu, setShowMenu] = useState(false);
   const [showNav, setShowNav] = useState(false);
-  let reg =
-    /\/dashboard|\/notifications|\/settings|\/faq|\/account\/verify\/email|\/instagram\/search|\/instagram\/profile*/;
 
   return (
     <>
@@ -45,7 +44,7 @@ const Navbar = () => {
           <NavLink to="/contactus">Contact Us</NavLink>
           <NavLink to="/faq">FAQ</NavLink>
 
-          {!reg.test(location.pathname) ? null : (
+          {loggedInStatus ? null : (
             <>
               <NavLink to="/instagram/search">Search</NavLink>
               <NavLink to="/dashboard">Dashboard</NavLink>
@@ -53,7 +52,7 @@ const Navbar = () => {
           )}
         </NavLinksContainer>
         <NavButtonsContainer>
-          {!reg.test(location.pathname) ? (
+          {!loggedInStatus ? (
             <>
               <NavLink to="/account/register">Register</NavLink>
               <NavLink to="/account/login">Login</NavLink>
@@ -99,9 +98,9 @@ const Navbar = () => {
                       <path
                         d="M17.4168 19.4691C17.4168 15.9253 14.544 13.0524 11.0002 13.0524C7.45634 13.0524 4.5835 15.9253 4.5835 19.4691M11.0002 10.3024C8.97512 10.3024 7.3335 8.66083 7.3335 6.63578C7.3335 4.61074 8.97512 2.96912 11.0002 2.96912C13.0252 2.96912 14.6668 4.61074 14.6668 6.63578C14.6668 8.66083 13.0252 10.3024 11.0002 10.3024Z"
                         stroke="#484F58"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                     </svg>
                     Account
@@ -117,34 +116,34 @@ const Navbar = () => {
                       <path
                         d="M15.583 9.3857H17.4163C19.2497 9.3857 20.1663 8.46903 20.1663 6.6357V4.80237C20.1663 2.96903 19.2497 2.05237 17.4163 2.05237H15.583C13.7497 2.05237 12.833 2.96903 12.833 4.80237V6.6357C12.833 8.46903 13.7497 9.3857 15.583 9.3857Z"
                         stroke="#484F58"
-                        stroke-width="1.5"
-                        stroke-miterlimit="10"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="1.5"
+                        strokeMiterlimit="10"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                       <path
                         d="M4.58301 20.3857H6.41634C8.24967 20.3857 9.16634 19.469 9.16634 17.6357V15.8024C9.16634 13.969 8.24967 13.0524 6.41634 13.0524H4.58301C2.74967 13.0524 1.83301 13.969 1.83301 15.8024V17.6357C1.83301 19.469 2.74967 20.3857 4.58301 20.3857Z"
                         stroke="#484F58"
-                        stroke-width="1.5"
-                        stroke-miterlimit="10"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="1.5"
+                        strokeMiterlimit="10"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                       <path
                         d="M5.49967 9.3857C7.52472 9.3857 9.16634 7.74408 9.16634 5.71903C9.16634 3.69399 7.52472 2.05237 5.49967 2.05237C3.47463 2.05237 1.83301 3.69399 1.83301 5.71903C1.83301 7.74408 3.47463 9.3857 5.49967 9.3857Z"
                         stroke="#484F58"
-                        stroke-width="1.5"
-                        stroke-miterlimit="10"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="1.5"
+                        strokeMiterlimit="10"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                       <path
                         d="M16.4997 20.3857C18.5247 20.3857 20.1663 18.7441 20.1663 16.719C20.1663 14.694 18.5247 13.0524 16.4997 13.0524C14.4746 13.0524 12.833 14.694 12.833 16.719C12.833 18.7441 14.4746 20.3857 16.4997 20.3857Z"
                         stroke="#484F58"
-                        stroke-width="1.5"
-                        stroke-miterlimit="10"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="1.5"
+                        strokeMiterlimit="10"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                     </svg>
                     Dashboard
@@ -161,9 +160,9 @@ const Navbar = () => {
                       <path
                         d="M12.5859 19.4692C12.4247 19.747 12.1934 19.9776 11.9151 20.1379C11.6367 20.2982 11.3212 20.3826 11 20.3826C10.6788 20.3826 10.3633 20.2982 10.085 20.1379C9.80666 19.9776 9.57534 19.747 9.41418 19.4692M16.5 7.55249C16.5 6.0938 15.9205 4.69485 14.8891 3.6634C13.8576 2.63195 12.4587 2.05249 11 2.05249C9.54131 2.05249 8.14236 2.63195 7.11091 3.6634C6.07946 4.69485 5.5 6.0938 5.5 7.55249C5.5 13.9692 2.75 15.8025 2.75 15.8025H19.25C19.25 15.8025 16.5 13.9692 16.5 7.55249Z"
                         stroke="#484F58"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                     </svg>
                     Inbox
@@ -221,14 +220,14 @@ const Navbar = () => {
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            stroke-width="1.5"
+            strokeWidth="1.5"
             stroke="white"
             onClick={() => setShowNav(!showNav)}
             className={showNav ? "dropdown" : ""}
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               d="M19.5 8.25l-7.5 7.5-7.5-7.5"
             />
           </svg>
@@ -239,8 +238,18 @@ const Navbar = () => {
           <NavLink to="/about">About</NavLink>
           <NavLink to="/contactus">Contact Us</NavLink>
           <NavLink to="/faq">FAQ</NavLink>
-          <NavLink to="/faq">register</NavLink>
-          <NavLink to="/faq">login</NavLink>
+          {loggedInStatus ? (
+            <>
+              <NavLink to="/dashboard">Dashboard</NavLink>
+              <NavLink to="/instagram/search">Search</NavLink>
+              <NavLink to="/user/account/settings">Account</NavLink>
+            </>
+          ) : (
+            <>
+              <NavLink to="/faq">register</NavLink>
+              <NavLink to="/faq">login</NavLink>
+            </>
+          )}
         </MobileNavLinksContainer>
       </MobileNav>
     </>

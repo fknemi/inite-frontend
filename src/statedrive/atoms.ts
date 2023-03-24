@@ -29,7 +29,7 @@ export const registerAtom: RecoilState<Atoms["registerForm"]> = atom({
 });
 export const loggedInStatusAtom = atom({
   key: "loggedInStatus",
-  default: false,
+  default: parseJSON(localStorage.getItem("user") as string),
 });
 export const loginAtom = atom({
   key: "login",

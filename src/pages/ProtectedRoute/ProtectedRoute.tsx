@@ -14,7 +14,7 @@ import {
 
 const ProtectedRoute = ({ component: Component, ...rest }: any) => {
   const [user, setUser] = useRecoilState(userAtom);
-  const [{ token, refreshToken }, setTokens] = useRecoilState(tokensAtom);
+  const [tokens, setTokens] = useRecoilState(tokensAtom);
   const setNotificationSettings = useSetRecoilState(notificationSettingsAtom);
   const [following, setFollowing] = useRecoilState(followingAtom);
   const [didLogin, setDidLogin] = useState(false);
@@ -23,13 +23,13 @@ const ProtectedRoute = ({ component: Component, ...rest }: any) => {
   const setNewNotificationsAlert = useSetRecoilState(newNotificationsAlertAtom);
 
   const navigate = useNavigate();
-  // const parseJSON = (item: string) => {
-  //   try {
-  //     return JSON.parse(localStorage.getItem(item) as string);
-  //   } catch {
-  //     return null;
-  //   }
-  // };
+  const parseJSON = (item: string) => {
+    try {
+      return JSON.parse(localStorage.getItem(item) as string);
+    } catch {
+      return null;
+    }
+  };
 
   useEffect(() => {
     let locationState = location.state as Location & {
@@ -39,6 +39,8 @@ const ProtectedRoute = ({ component: Component, ...rest }: any) => {
   }, []);
 
   const updateUser = () => {
+    let token = localStorage.getItem("x-token") as string;
+    let refreshToken = localStorage.getItem("x-refresh-token") as string;
     if (token && refreshToken) {
       (async () => {
         const { isSuccess, data } = await fetchUser(); //nosonar
@@ -78,9 +80,6 @@ const ProtectedRoute = ({ component: Component, ...rest }: any) => {
   }, []);
 
   useEffect(() => {
-    socket.on("connection", () => {
-      console.log("connected");
-    });
     socket.on("notifications", async (data: any) => {
       const newNotifications: any = await updateNotifications(data);
       if (!newNotifications) {
@@ -92,7 +91,15 @@ const ProtectedRoute = ({ component: Component, ...rest }: any) => {
     });
   }, []);
 
-  return <>{token && refreshToken ? <Component {...rest} /> : <>404 page</>}</>;
+  return (
+    <>
+      {tokens.token && tokens.refreshToken ? (
+        <Component {...rest} />
+      ) : (
+        <>404 page</>
+      )}
+    </>
+  );
 };
 
 export default ProtectedRoute;

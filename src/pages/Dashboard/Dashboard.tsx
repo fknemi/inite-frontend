@@ -37,10 +37,6 @@ export const DashboardCardsContainer = styled.div`
 const Dashboard = () => {
   const [user, setUser] = useRecoilState(userAtom);
 
-  useEffect(() => {
-    console.log(user);
-  }, []);
-
   return (
     <Layout>
       <DashboardContainer>
@@ -49,14 +45,15 @@ const Dashboard = () => {
         </div>
 
         <DashboardCardsContainer>
-          {user.following.map((followedUser: INSTAGRAM_USER) => {
-            return (
-              <DashboardProfileCard
-                key={followedUser.avatar}
-                {...followedUser}
-              />
-            );
-          })}
+          {user.following &&
+            user.following.map((followedUser: INSTAGRAM_USER) => {
+              return (
+                <DashboardProfileCard
+                  key={followedUser.avatar}
+                  {...followedUser}
+                />
+              );
+            })}
         </DashboardCardsContainer>
       </DashboardContainer>
     </Layout>

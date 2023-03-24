@@ -7,9 +7,7 @@ const Account = () => {
   const [user, setUser]: [USER, SetterOrUpdater<USER>] =
     useRecoilState(userAtom);
 
-  useEffect(() => {
-    console.log(user);
-  }, []);
+  
 
   return (
     <div className="ml-5">

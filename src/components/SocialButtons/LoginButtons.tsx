@@ -7,7 +7,7 @@ import {
   useLocation,
 } from "react-router-dom";
 
-console.log(process.env.REACT_APP_ID);
+
 
 const AUTHORIZATION_URL = `https://api.instagram.com/oauth/authorize?client_id=${process.env.REACT_APP_ID}&redirect_uri=https://localhost:3000/user/account/settings&response_type=code&scope=user_profile,user_media&display=popup`;
 export const GoogleLogin = () => {

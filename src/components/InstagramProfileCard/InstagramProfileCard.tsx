@@ -74,7 +74,7 @@ const InstagramProfileCard = ({
   username: string;
   avatar: string;
 }) => {
-  console.log(avatar)
+
   return (
     <CardContainer>
       <div>

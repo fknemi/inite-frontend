@@ -117,7 +117,7 @@ const ActionButtons = ({ _isBanned, _isOwner, username }: any) => {
                 return setHideActions(true);
               }
 
-              console.log(data);
+              
 
               setUserDetails(data);
             }}
